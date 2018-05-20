@@ -7,10 +7,39 @@
     tools:context=".feature.add.BookAddActivity">
 
     <include
+        android:id="@+id/actionbar"
         layout="@layout/shared_action_bar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/isbn_input_field"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="29dp"
+        android:layout_marginStart="24dp"
+        android:ems="10"
+        android:hint="@string/activity_add_book_isbn_input_text"
+        android:inputType="text"
+        android:singleLine="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/lookup_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/actionbar" />
+
+    <Button
+        android:id="@+id/lookup_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/activity_add_book_lookup"
+        app:layout_constraintBaseline_toBaselineOf="@+id/isbn_input_field"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/isbn_input_field" />
+
 </android.support.constraint.ConstraintLayout>
