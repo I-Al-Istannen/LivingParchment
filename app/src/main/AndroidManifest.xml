@@ -17,6 +17,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".feature.add.BookAddActivity"
+            android:parentActivityName=".feature.mainscreen.MainActivity" />
     </application>
 
 </manifest>
