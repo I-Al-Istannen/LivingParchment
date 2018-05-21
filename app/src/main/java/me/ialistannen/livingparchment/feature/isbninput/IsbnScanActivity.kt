@@ -1,4 +1,4 @@
-package me.ialistannen.livingparchment.di.feature.isbninput
+package me.ialistannen.livingparchment.feature.isbninput
 
 import android.content.Intent
 import android.view.Menu

@@ -6,7 +6,7 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_book_add.*
 import me.ialistannen.livingparchment.R
 import me.ialistannen.livingparchment.common.api.response.BookAddStatus
-import me.ialistannen.livingparchment.di.feature.isbninput.IsbnScanActivity
+import me.ialistannen.livingparchment.feature.isbninput.IsbnScanActivity
 import javax.inject.Inject
 
 class BookAddActivity : IsbnScanActivity(), AddScreenContract.View {
