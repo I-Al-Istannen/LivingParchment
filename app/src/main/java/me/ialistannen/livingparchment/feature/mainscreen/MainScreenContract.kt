@@ -1,6 +1,5 @@
 package me.ialistannen.livingparchment.feature.mainscreen
 
-import me.ialistannen.livingparchment.feature.BasePresenter
 import me.ialistannen.livingparchment.feature.BaseView
 
 interface MainScreenContract {
@@ -9,7 +8,7 @@ interface MainScreenContract {
 
     }
 
-    interface Presenter : BasePresenter {
+    interface Presenter : me.ialistannen.livingparchment.feature.Presenter {
 
     }
 }

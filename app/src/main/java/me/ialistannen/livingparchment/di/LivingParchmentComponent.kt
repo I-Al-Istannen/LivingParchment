@@ -5,11 +5,13 @@ import dagger.android.AndroidInjectionModule
 import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
 import me.ialistannen.livingparchment.LivingParchmentApplication
+import me.ialistannen.livingparchment.di.feature.WebrequestsModule
 
 @Component(modules = [
     AndroidInjectionModule::class,
     AndroidSupportInjectionModule::class,
-    ActivityBuilder::class
+    ActivityBuilder::class,
+    WebrequestsModule::class
 ])
 @ApplicationScope
 interface LivingParchmentComponent : AndroidInjector<LivingParchmentApplication> {

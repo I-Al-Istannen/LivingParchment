@@ -3,4 +3,7 @@
     <string name="shared_action_bar_settings_name">Settings</string>
     <string name="activity_add_book_isbn_input_text">Enter Isbn…</string>
     <string name="activity_add_book_lookup">Lookup</string>
+    <string name="activity_add_book_internal_server_error">Internal server error</string>
+    <string name="activity_add_book_not_found">Book not found :/</string>
+    <string name="activity_add_book_added">Book added!</string>
 </resources>

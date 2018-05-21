@@ -7,12 +7,12 @@ import android.view.Menu
 import kotlinx.android.synthetic.main.activity_main.*
 import me.ialistannen.livingparchment.R
 import me.ialistannen.livingparchment.feature.BaseActivity
-import me.ialistannen.livingparchment.feature.BasePresenter
+import me.ialistannen.livingparchment.feature.Presenter
 import me.ialistannen.livingparchment.feature.add.BookAddActivity
 
 class MainActivity : BaseActivity(), MainScreenContract.View {
 
-    override val presenter: BasePresenter = MainScreenPresenter()
+    override val presenter: Presenter = MainScreenPresenter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
