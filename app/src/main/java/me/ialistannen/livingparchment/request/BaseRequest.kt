@@ -17,5 +17,20 @@ abstract class BaseRequest<out T : Any>(protected val serverConfig: ServerConfig
      * @param response the response the server returned
      * @return the
      */
-    abstract fun handleResponse(response: Response): Result<T, Exception>
+    open fun handleResponse(response: Response): Result<T, Exception> {
+        return try {
+            val addResponse = parse(String(response.data))
+            Result.Success(addResponse)
+        } catch (e: Exception) {
+            Result.error(e)
+        }
+    }
+
+    /**
+     * Parses the response string to the returned object.
+     *
+     * @param responseString the response string
+     * @throws Exception if anything happens, it will be wrapped appropriately
+     */
+    protected abstract fun parse(responseString: String): T
 }
