@@ -29,7 +29,7 @@ class BookListFragment : BaseFragment(), BookListFragmentContract.View {
         return inflater.inflate(R.layout.fragment_book_query_list, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val adapter = BookListAdapter()
         book_list.adapter = adapter
         book_list.layoutManager = LinearLayoutManager(activity)

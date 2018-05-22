@@ -4,6 +4,7 @@ import dagger.Module
 import dagger.android.ContributesAndroidInjector
 import me.ialistannen.livingparchment.di.feature.add.AddScreenModule
 import me.ialistannen.livingparchment.di.feature.delete.DeleteScreenModule
+import me.ialistannen.livingparchment.di.feature.query.DetailFragmentProvider
 import me.ialistannen.livingparchment.di.feature.query.ListFragmentProvider
 import me.ialistannen.livingparchment.di.feature.query.QueryFragmentProvider
 import me.ialistannen.livingparchment.di.feature.query.QueryScreenModule
@@ -27,7 +28,8 @@ abstract class ActivityBuilder {
     @ContributesAndroidInjector(modules = [
         QueryScreenModule::class,
         QueryFragmentProvider::class,
-        ListFragmentProvider::class
+        ListFragmentProvider::class,
+        DetailFragmentProvider::class
     ])
     abstract fun bindBookQueryActivity(): BookQueryActivity
 }

@@ -13,6 +13,15 @@
     <string name="activity_query_hint_query_input">Query input…</string>
     <string name="activity_query_button_query">Execute Query</string>
 
+    <string name="fragment_book_detail_title">Title</string>
+    <string name="fragment_book_detail_authors">Authors</string>
+    <string name="fragment_book_detail_isbn">ISBN</string>
+    <string name="fragment_book_detail_language">Language</string>
+    <string name="fragment_book_detail_page_count">Page count</string>
+    <string name="fragment_book_detail_publisher">Publisher</string>
+    <string name="fragment_book_detail_published">Published at</string>
+    <string name="fragment_book_detail_genre">Genres</string>
+
     <string-array name="test_dummy_array">
         <item>First item</item>
         <item>Second item</item>

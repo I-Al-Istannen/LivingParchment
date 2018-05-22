@@ -21,8 +21,8 @@ abstract class ListFragmentProvider {
 abstract class ListFragmentModule {
 
     @Binds
-    abstract fun bindPresenter(bookListPresenter: BookListPresenter): BookListFragmentContract.Presenter
+    abstract fun bindListPresenter(bookListPresenter: BookListPresenter): BookListFragmentContract.Presenter
 
     @Binds
-    abstract fun bindView(bookListFragment: BookListFragment): BookListFragmentContract.View
+    abstract fun bindListView(bookListFragment: BookListFragment): BookListFragmentContract.View
 }
