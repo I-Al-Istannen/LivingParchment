@@ -38,7 +38,6 @@ class BookListFragment : BaseFragment(), BookListFragmentContract.View {
         if (books.isNotEmpty()) {
             adapter.items = books
             adapter.clickListener = { presenter.bookSelected(it) }
-            books = emptyList()
         }
     }
 

@@ -15,6 +15,7 @@ import me.ialistannen.livingparchment.common.model.Book
 import me.ialistannen.livingparchment.common.serialization.fromJson
 import me.ialistannen.livingparchment.common.serialization.toJson
 import me.ialistannen.livingparchment.feature.BaseFragment
+import java.text.DateFormat
 import javax.inject.Inject
 
 class BookDetailFragment : BaseFragment(), BookDetailFragmentContract.View {
@@ -68,14 +69,16 @@ class BookDetailFragment : BaseFragment(), BookDetailFragmentContract.View {
                 "language" to book.language,
                 "page_count" to book.pageCount.toString(),
                 "publisher" to book.publisher,
-                "published" to book.published.toString()
+                "published" to DateFormat.getDateInstance(DateFormat.LONG).format(book.published)
         )
         for ((key, value) in book.extra) {
             if (key == "authors") {
                 continue
             }
-            if (value is List<*> && value.isNotEmpty()) {
-                dataList.add(key to value.joinToString(", "))
+            if (value is List<*>) {
+                if (value.isNotEmpty()) {
+                    dataList.add(key to value.joinToString(", "))
+                }
             } else {
                 dataList.add(key to value.toString())
             }
