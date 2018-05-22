@@ -8,4 +8,25 @@
         <!--<item name="colorAccent">@color/colorAccent</item>-->
     </style>
 
+    <style name="BookListViewHolderTitle">
+        <!--<item name="android:textColor">@android:color/white</item>-->
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="BookListViewHolderIsbn">
+        <!--<item name="android:textColor">@android:color/white</item>-->
+        <item name="android:textStyle">italic</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@android:color/darker_gray</item>
+    </style>
+
+    <style name="BookListViewHolderAuthor">
+        <!--<item name="android:textColor">@android:color/white</item>-->
+        <item name="android:textStyle">italic</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@android:color/darker_gray</item>
+    </style>
+
 </resources>

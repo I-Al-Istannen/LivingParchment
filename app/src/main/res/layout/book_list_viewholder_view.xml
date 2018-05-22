@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+
+    android:clickable="true"
+    android:focusable="true"
+    android:background="?selectableItemBackground">
+
+    <TextView
+        android:id="@+id/book_title"
+        style="@style/BookListViewHolderTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="This is a very long book title that should get wrapped or truncated." />
+
+    <TextView
+        android:id="@+id/book_author"
+        style="@style/BookListViewHolderAuthor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        app:layout_constraintBottom_toTopOf="@+id/book_isbn"
+        app:layout_constraintEnd_toEndOf="@+id/book_isbn"
+        app:layout_constraintStart_toStartOf="@+id/book_isbn"
+        app:layout_constraintTop_toBottomOf="@id/book_title"
+        tools:text="A long author 1. A long author 2. A long author 3. A long author 4. A long author 5." />
+
+    <TextView
+        android:id="@+id/book_isbn"
+        style="@style/BookListViewHolderIsbn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/book_title"
+        app:layout_constraintStart_toStartOf="@+id/book_title"
+        app:layout_constraintTop_toBottomOf="@+id/book_author"
+        tools:text="isbn isbn isbn" />
+
+</android.support.constraint.ConstraintLayout>

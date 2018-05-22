@@ -2,16 +2,16 @@ package me.ialistannen.livingparchment.feature.query
 
 import android.os.Bundle
 import android.support.v7.widget.Toolbar
-import android.widget.ArrayAdapter
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_book_query.*
 import me.ialistannen.livingparchment.R
-import me.ialistannen.livingparchment.common.api.query.QueryType
 import me.ialistannen.livingparchment.common.model.Book
 import me.ialistannen.livingparchment.feature.BaseActivity
+import me.ialistannen.livingparchment.feature.query.list.BookListFragment
+import me.ialistannen.livingparchment.feature.query.query.QueryFragment
 import javax.inject.Inject
 
-class BookQueryActivity : BaseActivity(), QueryScreenContract.View {
+class BookQueryActivity : BaseActivity(), QueryScreenContract.View, QueryNavigator {
 
     @Inject
     override lateinit var presenter: QueryScreenContract.Presenter
@@ -22,19 +22,10 @@ class BookQueryActivity : BaseActivity(), QueryScreenContract.View {
 
         setSupportActionBar(actionbar as Toolbar)
 
-        query_type_spinner.adapter = ArrayAdapter<QueryType>(this,
-                android.R.layout.simple_spinner_item,
-                QueryType.values()
-        ).apply {
-            setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        }
-
-        button_execute_query.setOnClickListener {
-            presenter.runQuery(
-                    query_type_spinner.selectedItem as QueryType,
-                    attribute_name_spinner.selectedItem as String,
-                    query_input_field.text.toString()
-            )
+        if (savedInstanceState == null) {
+            fragmentManager.beginTransaction()
+                    .replace(fragment_container.id, QueryFragment())
+                    .commit()
         }
     }
 
@@ -43,7 +34,10 @@ class BookQueryActivity : BaseActivity(), QueryScreenContract.View {
     }
 
     override fun displayResults(books: List<Book>) {
-        Toast.makeText(this, "Results: ${books.size}", Toast.LENGTH_LONG).show()
+        fragmentManager.beginTransaction()
+                .addToBackStack(null)
+                .replace(fragment_container.id, BookListFragment().apply { setBooks(books) })
+                .commit()
     }
 
     override fun displayGenericError(message: String) {

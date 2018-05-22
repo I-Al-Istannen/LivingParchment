@@ -2,6 +2,7 @@ package me.ialistannen.livingparchment.feature
 
 import android.os.Bundle
 import android.support.annotation.CallSuper
+import dagger.android.DaggerFragment
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.coroutines.experimental.Job
 
@@ -36,6 +37,34 @@ abstract class BaseActivity : DaggerAppCompatActivity(), CoroutineHolder {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         presenter.onCreate()
+    }
+
+    @CallSuper
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.onDestroy()
+        job.cancel()
+    }
+}
+
+/**
+ * The base activity that handles presenters.
+ */
+abstract class BaseFragment : DaggerFragment(), CoroutineHolder {
+
+    override val job: Job = Job()
+
+    /**
+     * The presenter this activity uses.
+     */
+    protected abstract val presenter: Presenter
+
+    @CallSuper
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        presenter.onCreate()
+
+        retainInstance = true
     }
 
     @CallSuper
