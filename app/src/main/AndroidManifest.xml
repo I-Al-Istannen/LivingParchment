@@ -27,6 +27,7 @@
             android:name=".feature.delete.BookDeleteActivity"
             android:parentActivityName=".feature.mainscreen.MainActivity"
             android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".feature.query.BookQueryActivity"></activity>
     </application>
 
 </manifest>

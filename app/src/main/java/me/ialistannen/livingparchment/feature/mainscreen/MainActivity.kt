@@ -10,6 +10,7 @@ import me.ialistannen.livingparchment.feature.BaseActivity
 import me.ialistannen.livingparchment.feature.Presenter
 import me.ialistannen.livingparchment.feature.add.BookAddActivity
 import me.ialistannen.livingparchment.feature.delete.BookDeleteActivity
+import me.ialistannen.livingparchment.feature.query.BookQueryActivity
 
 class MainActivity : BaseActivity(), MainScreenContract.View {
 
@@ -28,6 +29,11 @@ class MainActivity : BaseActivity(), MainScreenContract.View {
         }
         go_to_delete_button.setOnClickListener {
             Intent(this, BookDeleteActivity::class.java).apply {
+                startActivity(this)
+            }
+        }
+        go_to_query_button.setOnClickListener {
+            Intent(this, BookQueryActivity::class.java).apply {
                 startActivity(this)
             }
         }

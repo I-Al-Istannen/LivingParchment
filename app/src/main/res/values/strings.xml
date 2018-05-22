@@ -8,4 +8,25 @@
     <string name="activity_add_book_added">Book added!</string>
     <string name="activity_delete_book_deleted">Book deleted!</string>
     <string name="activity_delete_book_delete_button">Delete!</string>
+    <string name="activity_query_label_query_type">Query type</string>
+    <string name="activity_query_label_attribute">Attribute</string>
+    <string name="activity_query_hint_query_input">Query input…</string>
+    <string name="activity_query_button_query">Execute Query</string>
+
+    <string-array name="test_dummy_array">
+        <item>First item</item>
+        <item>Second item</item>
+        <item>Third item</item>
+    </string-array>
+
+    <string-array name="query_attributes">
+        <item>isbn</item>
+        <item>title</item>
+        <item>language</item>
+        <item>page_count</item>
+        <item>publisher</item>
+        <item>published</item>
+        <item>authors</item>
+        <item>genre</item>
+    </string-array>
 </resources>
