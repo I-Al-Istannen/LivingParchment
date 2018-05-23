@@ -45,6 +45,14 @@ abstract class BaseActivity : DaggerAppCompatActivity(), CoroutineHolder {
         presenter.onDestroy()
         job.cancel()
     }
+
+    override fun onSupportNavigateUp(): Boolean {
+        if (fragmentManager.backStackEntryCount > 0) {
+            fragmentManager.popBackStack()
+            return false
+        }
+        return super.onNavigateUp()
+    }
 }
 
 /**

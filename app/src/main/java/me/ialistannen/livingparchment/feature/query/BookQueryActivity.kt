@@ -36,14 +36,6 @@ class BookQueryActivity : BaseActivity(), QueryScreenContract.View, QueryNavigat
         }
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        if (fragmentManager.backStackEntryCount > 0) {
-            fragmentManager.popBackStack()
-            return false
-        }
-        return super.onNavigateUp()
-    }
-
     override fun displayDetailPage(book: Book) {
         fragmentManager.beginTransaction()
                 .addToBackStack(null)
