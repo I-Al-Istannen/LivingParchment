@@ -12,6 +12,13 @@
         <!--Set the icons-->
         <item name="android:textColorPrimary">@android:color/white</item>
         <item name="android:elevation" tools:ignore="NewApi">4dp</item>
+        <item name="android:autoCompleteTextViewStyle">@style/CustomActionBar.AutocompleteTextView
+        </item>
+    </style>
+
+    <!--As this is what the search view uses. How ugly.-->
+    <style name="CustomActionBar.AutocompleteTextView" parent="Widget.AppCompat.AutoCompleteTextView">
+        <item name="android:textColorHint">@android:color/white</item>
     </style>
 
     <style name="BookListViewHolderTitle">
