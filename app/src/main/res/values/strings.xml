@@ -21,6 +21,9 @@
     <string name="fragment_book_detail_publisher">Publisher</string>
     <string name="fragment_book_detail_published">Published at</string>
     <string name="fragment_book_detail_genre">Genres</string>
+    <string name="activity_query_title">Query</string>
+    <string name="activity_add_book_title">Add book</string>
+    <string name="activity_delete_book_title">Delete book</string>
 
     <string-array name="test_dummy_array">
         <item>First item</item>

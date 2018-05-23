@@ -37,6 +37,11 @@ class MainActivity : BaseActivity(), MainScreenContract.View {
                 startActivity(this)
             }
         }
+
+        supportActionBar?.let {
+            it.title = getString(R.string.app_name)
+            it.setDisplayShowHomeEnabled(false)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

@@ -28,6 +28,20 @@ class BookQueryActivity : BaseActivity(), QueryScreenContract.View, QueryNavigat
                     .replace(fragment_container.id, QueryFragment())
                     .commit()
         }
+
+        supportActionBar?.let {
+            it.title = getString(R.string.activity_query_title)
+            it.setDisplayShowHomeEnabled(true)
+            it.setDisplayHomeAsUpEnabled(true)
+        }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        if (fragmentManager.backStackEntryCount > 0) {
+            fragmentManager.popBackStack()
+            return false
+        }
+        return super.onNavigateUp()
     }
 
     override fun displayDetailPage(book: Book) {

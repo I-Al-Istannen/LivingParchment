@@ -23,6 +23,12 @@ class BookAddActivity : IsbnScanActivity(), AddScreenContract.View {
         lookup_button.setOnClickListener {
             presenter.add(isbn_input_field.text.toString())
         }
+
+        supportActionBar?.let {
+            it.title = getString(R.string.activity_add_book_title)
+            it.setDisplayShowHomeEnabled(true)
+            it.setDisplayHomeAsUpEnabled(true)
+        }
     }
 
     override fun onIsbnScanned(isbn: String) {

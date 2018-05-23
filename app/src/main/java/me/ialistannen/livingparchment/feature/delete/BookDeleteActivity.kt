@@ -23,6 +23,12 @@ class BookDeleteActivity : IsbnScanActivity(), DeleteScreenContract.View {
         delete_button.setOnClickListener {
             presenter.delete(isbn_input_field.text.toString())
         }
+
+        supportActionBar?.let {
+            it.title = getString(R.string.activity_delete_book_title)
+            it.setDisplayShowHomeEnabled(true)
+            it.setDisplayHomeAsUpEnabled(true)
+        }
     }
 
     override fun onIsbnScanned(isbn: String) {
