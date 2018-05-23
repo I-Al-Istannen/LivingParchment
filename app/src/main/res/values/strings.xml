@@ -41,4 +41,10 @@
         <item>authors</item>
         <item>genre</item>
     </string-array>
+
+    <string name="action_settings">Settings</string>
+    <string name="activity_settings_category_server_title">Server settings</string>
+    <string name="activity_settings_category_server_address_title">Server address</string>
+    <string name="activity_settings_category_server_address_summary">Using \'%s\' as server address.</string>
+    <string name="activity_settings_title">Settings</string>
 </resources>

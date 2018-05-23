@@ -31,6 +31,14 @@
             android:name=".feature.query.BookQueryActivity"
             android:parentActivityName=".feature.mainscreen.MainActivity"
             android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".feature.preferences.SettingsActivity"
+            android:parentActivityName=".feature.mainscreen.MainActivity"
+            android:windowSoftInputMode="adjustResize">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="me.ialistannen.livingparchment.feature.mainscreen.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
