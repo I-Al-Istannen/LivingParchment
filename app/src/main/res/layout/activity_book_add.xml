@@ -17,19 +17,20 @@
 
     <EditText
         android:id="@+id/isbn_input_field"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="29dp"
         android:layout_marginStart="24dp"
-        android:ems="10"
         android:hint="@string/activity_add_book_isbn_input_text"
         android:inputType="text"
         android:singleLine="true"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/location_label"
         app:layout_constraintEnd_toStartOf="@+id/lookup_button"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/actionbar" />
+        app:layout_constraintTop_toBottomOf="@+id/actionbar"
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <Button
         android:id="@+id/lookup_button"
@@ -41,5 +42,31 @@
         app:layout_constraintBaseline_toBaselineOf="@+id/isbn_input_field"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/isbn_input_field" />
+
+    <Spinner
+        android:id="@+id/location_spinner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginStart="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/location_label" />
+
+    <TextView
+        android:id="@+id/location_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/activity_add_book_location_label"
+        app:layout_constraintBottom_toTopOf="@+id/location_spinner"
+        app:layout_constraintEnd_toEndOf="@+id/location_spinner"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/location_spinner"
+        app:layout_constraintTop_toBottomOf="@+id/isbn_input_field" />
 
 </android.support.constraint.ConstraintLayout>

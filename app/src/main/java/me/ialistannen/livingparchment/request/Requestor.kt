@@ -67,10 +67,10 @@ private fun extractErrorFromResponse(response: Response?): Exception? {
         val returnedData = response.data.toString(Charset.defaultCharset())
         val errorResponse = returnedData.fromJson<ErrorResponsePojo>()
         return RuntimeException(
-                "Error: ${errorResponse.errors.joinToString(", ")} (${response.statusCode})"
+                "Error: ${errorResponse.errors?.joinToString(", ")} (${response.statusCode})"
         )
     }
     return null
 }
 
-private data class ErrorResponsePojo(val errors: List<String>)
+private data class ErrorResponsePojo(val errors: List<String>?)

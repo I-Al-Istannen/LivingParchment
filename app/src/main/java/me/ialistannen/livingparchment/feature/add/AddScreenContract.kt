@@ -1,11 +1,19 @@
 package me.ialistannen.livingparchment.feature.add
 
 import me.ialistannen.livingparchment.common.api.response.BookAddStatus
+import me.ialistannen.livingparchment.common.model.BookLocation
 import me.ialistannen.livingparchment.feature.BaseView
 
 interface AddScreenContract {
 
     interface View : BaseView {
+
+        /**
+         * Displays a generic error message.
+         *
+         * @param message a message explaining the error
+         */
+        fun displayGenericerror(message: String)
 
         /**
          * Adding was not successful
@@ -27,6 +35,13 @@ interface AddScreenContract {
          * @param isbn the isbn in the input field
          */
         fun setInputIsbn(isbn: String)
+
+        /**
+         * Sets all [BookLocation]s to display.
+         *
+         * @param locations the valid book locations
+         */
+        fun setAvailableLocations(locations: List<BookLocation>)
     }
 
     interface Presenter : me.ialistannen.livingparchment.feature.Presenter {
@@ -34,6 +49,6 @@ interface AddScreenContract {
         /**
          * Adds an ISBN to the library.
          */
-        fun add(isbn: String)
+        fun add(isbn: String, bookLocation: BookLocation?)
     }
 }

@@ -2,7 +2,7 @@
     <string name="app_name">LivingParchment</string>
     <string name="shared_action_bar_settings_name">Settings</string>
     <string name="activity_add_book_isbn_input_text">Enter Isbn…</string>
-    <string name="activity_add_book_lookup">Lookup</string>
+    <string name="activity_add_book_lookup">Add!</string>
     <string name="status_internal_server_error">Internal server error</string>
     <string name="status_book_not_found">Book not found :/</string>
     <string name="activity_add_book_added">Book added!</string>
@@ -21,6 +21,8 @@
     <string name="fragment_book_detail_publisher">Publisher</string>
     <string name="fragment_book_detail_published">Published at</string>
     <string name="fragment_book_detail_genre">Genres</string>
+    <string name="fragment_book_detail_location">Location</string>
+    <string name="fragment_book_detail_description">Description</string>
     <string name="activity_query_title">Query</string>
     <string name="activity_add_book_title">Add book</string>
     <string name="activity_delete_book_title">Delete book</string>
@@ -40,6 +42,8 @@
         <item>published</item>
         <item>authors</item>
         <item>genre</item>
+        <item>description</item>
+        <item>location</item>
     </string-array>
 
     <string name="action_settings">Settings</string>
@@ -47,4 +51,6 @@
     <string name="activity_settings_category_server_address_title">Server address</string>
     <string name="activity_settings_category_server_address_summary">Using \'%s\' as server address.</string>
     <string name="activity_settings_title">Settings</string>
+    <string name="activity_add_book_location_label">Location</string>
+    <string name="activity_add_book_no_location">No location</string>
 </resources>
