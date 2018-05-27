@@ -39,6 +39,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="me.ialistannen.livingparchment.feature.mainscreen.MainActivity" />
         </activity>
+        <activity android:name=".feature.location.add.ManageBookLocationActivity"></activity>
     </application>
 
 </manifest>

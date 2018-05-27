@@ -53,4 +53,9 @@
     <string name="activity_settings_title">Settings</string>
     <string name="activity_add_book_location_label">Location</string>
     <string name="activity_add_book_no_location">No location</string>
+    <string name="activity_add_location_locations_label">All locations</string>
+    <string name="add_location_add_button">Add!</string>
+    <string name="activity_add_location_name_textfield_hint">Name…</string>
+    <string name="activity_add_location_description_textfield_hint">Description…</string>
+    <string name="activity_manage_book_location_delete">Delete</string>
 </resources>

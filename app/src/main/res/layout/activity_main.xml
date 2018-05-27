@@ -4,26 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".feature.mainscreen.MainActivity">
+    tools:context=".feature.mainscreen.MainActivity"
+    tools:layout_editor_absoluteY="25dp">
 
     <include
         android:id="@+id/actionbar"
         layout="@layout/shared_action_bar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_width="360dp"
+        android:layout_height="wrap_content" />
 
     <Button
         android:id="@+id/go_to_add_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
         android:text="Go to Add"
         app:layout_constraintBottom_toTopOf="@+id/go_to_delete_button"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/actionbar"
         app:layout_constraintVertical_chainStyle="packed" />
@@ -32,26 +29,33 @@
         android:id="@+id/go_to_delete_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
         android:text="Go to Delete"
         app:layout_constraintBottom_toTopOf="@+id/go_to_query_button"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/go_to_add_button" />
+        app:layout_constraintTop_toBottomOf="@+id/go_to_add_button" />
 
     <Button
         android:id="@+id/go_to_query_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
         android:text="Go to Query"
+        app:layout_constraintBottom_toTopOf="@+id/go_to_location_manage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/go_to_delete_button" />
+
+    <Button
+        android:id="@+id/go_to_location_manage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Go to locations"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/go_to_delete_button" />
+        app:layout_constraintTop_toBottomOf="@+id/go_to_query_button" />
 
 </android.support.constraint.ConstraintLayout>

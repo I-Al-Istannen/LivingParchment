@@ -12,6 +12,7 @@ import me.ialistannen.livingparchment.feature.BaseActivity
 import me.ialistannen.livingparchment.feature.Presenter
 import me.ialistannen.livingparchment.feature.add.BookAddActivity
 import me.ialistannen.livingparchment.feature.delete.BookDeleteActivity
+import me.ialistannen.livingparchment.feature.location.add.ManageBookLocationActivity
 import me.ialistannen.livingparchment.feature.preferences.SettingsActivity
 import me.ialistannen.livingparchment.feature.query.BookQueryActivity
 
@@ -37,6 +38,11 @@ class MainActivity : BaseActivity(), MainScreenContract.View {
         }
         go_to_query_button.setOnClickListener {
             Intent(this, BookQueryActivity::class.java).apply {
+                startActivity(this)
+            }
+        }
+        go_to_location_manage.setOnClickListener {
+            Intent(this, ManageBookLocationActivity::class.java).apply {
                 startActivity(this)
             }
         }
