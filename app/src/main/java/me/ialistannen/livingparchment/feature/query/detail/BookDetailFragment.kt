@@ -1,6 +1,5 @@
 package me.ialistannen.livingparchment.feature.query.detail
 
-import android.graphics.Rect
 import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
@@ -15,6 +14,7 @@ import me.ialistannen.livingparchment.common.model.Book
 import me.ialistannen.livingparchment.common.serialization.fromJson
 import me.ialistannen.livingparchment.common.serialization.toJson
 import me.ialistannen.livingparchment.feature.BaseFragment
+import me.ialistannen.livingparchment.util.addSpacingDecoration
 import java.text.DateFormat
 import javax.inject.Inject
 
@@ -45,14 +45,7 @@ class BookDetailFragment : BaseFragment(), BookDetailFragmentContract.View {
         book_detail_list.addItemDecoration(
                 DividerItemDecoration(activity, DividerItemDecoration.VERTICAL)
         )
-        book_detail_list.addItemDecoration(object : RecyclerView.ItemDecoration() {
-            override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
-                if (parent.getChildAdapterPosition(view) != 0) {
-                    outRect.top += 20
-                }
-                outRect.bottom += 20
-            }
-        })
+        book_detail_list.addSpacingDecoration()
 
         if (arguments.containsKey("book")) {
             val book = arguments.getString("book").fromJson<Book>()
@@ -70,6 +63,9 @@ class BookDetailFragment : BaseFragment(), BookDetailFragmentContract.View {
                 "publisher" to book.publisher,
                 "published" to DateFormat.getDateInstance(DateFormat.LONG).format(book.published)
         )
+        if (book.location != null) {
+            dataList.add("location" to book.location!!.name)
+        }
         for ((key, value) in book.extra) {
             if (key == "authors") {
                 continue

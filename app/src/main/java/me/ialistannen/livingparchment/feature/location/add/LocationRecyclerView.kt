@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import me.ialistannen.livingparchment.R
 import me.ialistannen.livingparchment.common.model.BookLocation
+import me.ialistannen.livingparchment.util.addSpacingDecoration
 
 class LocationRecyclerView : RecyclerView {
 
@@ -27,6 +28,7 @@ class LocationRecyclerView : RecyclerView {
         adapter = LocationAdapter()
         layoutManager = LinearLayoutManager(context)
         addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+        addSpacingDecoration()
     }
 
     fun setLocations(locations: List<BookLocation>) {

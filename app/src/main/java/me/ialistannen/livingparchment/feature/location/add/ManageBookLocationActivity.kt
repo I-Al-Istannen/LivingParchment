@@ -58,6 +58,13 @@ class ManageBookLocationActivity : BaseActivity(), ManageBookLocationContract.Vi
         swipe_layout.setOnRefreshListener {
             presenter.refresh()
         }
+
+        @Suppress("DEPRECATION")
+        swipe_layout.setColorSchemeColors(
+                resources.getColor(R.color.colorPrimary),
+                resources.getColor(R.color.colorPrimaryDark),
+                resources.getColor(R.color.colorAccent)
+        )
     }
 
     override fun setRefreshing(refreshes: Boolean) {
