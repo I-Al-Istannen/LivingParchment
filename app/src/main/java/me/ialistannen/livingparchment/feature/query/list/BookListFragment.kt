@@ -6,6 +6,7 @@ import android.widget.SearchView
 import android.widget.Toast
 import kotlinx.android.synthetic.main.fragment_book_query_list.*
 import me.ialistannen.livingparchment.R
+import me.ialistannen.livingparchment.common.api.response.BookDeleteStatus
 import me.ialistannen.livingparchment.common.model.Book
 import me.ialistannen.livingparchment.feature.BaseFragment
 import me.ialistannen.livingparchment.feature.query.QueryNavigator
@@ -19,7 +20,7 @@ class BookListFragment : BaseFragment(), BookListFragmentContract.View {
     @Inject
     override lateinit var presenter: BookListFragmentContract.Presenter
 
-    private var books: List<Book> = emptyList()
+    private var books: List<Book>? = null
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -33,10 +34,21 @@ class BookListFragment : BaseFragment(), BookListFragmentContract.View {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        if (books.isNotEmpty()) {
-            book_list.books = books
-            book_list.setClickListener { presenter.bookSelected(it) }
+        if (books != null) {
+            presenter.setBooks(books!!)
         }
+
+        book_list.setClickListener { presenter.bookSelected(it) }
+
+        book_list.setContextMenuListener { item, menu, _, _ ->
+            menu.add(R.string.activity_manage_book_location_delete)
+                    .setOnMenuItemClickListener {
+                        presenter.deleteBook(item)
+                        true
+                    }
+        }
+
+        presenter.onViewCreated()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -69,8 +81,8 @@ class BookListFragment : BaseFragment(), BookListFragmentContract.View {
      * @param books the books to display
      */
     fun setBooks(books: List<Book>) {
-        if (book_list != null) {
-            book_list.books = books
+        if (isVisible) {
+            presenter.setBooks(books)
         } else {
             this.books = books
         }
@@ -89,6 +101,22 @@ class BookListFragment : BaseFragment(), BookListFragmentContract.View {
         }
 
         navigator.displayDetailPage(book)
+    }
+
+    override fun displayGenericError(error: String) {
+        Toast.makeText(activity, error, Toast.LENGTH_LONG).show()
+    }
+
+    override fun displayDeleteStatus(status: BookDeleteStatus) {
+        when (status) {
+            BookDeleteStatus.DELETED -> displayGenericError("Book deleted")
+            BookDeleteStatus.INTERNAL_ERROR -> displayGenericError("An internal error occurred.")
+            BookDeleteStatus.NOT_FOUND -> displayGenericError("Book not found.")
+        }
+    }
+
+    override fun displayBooks(books: List<Book>) {
+        book_list.books = books
     }
 
     private fun getBookFilter(containedText: String): (Book) -> Boolean {

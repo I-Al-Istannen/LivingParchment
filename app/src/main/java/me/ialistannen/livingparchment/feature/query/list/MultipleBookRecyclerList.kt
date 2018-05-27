@@ -5,6 +5,7 @@ import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
+import android.view.ContextMenu
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -53,6 +54,17 @@ class MultipleBookRecyclerList : RecyclerView {
         adapter.clickListener = clickListener
     }
 
+    /**
+     * Sets the long press listener. Must be set before the items are set via [books].
+     *
+     * @param listener the listener
+     */
+    fun setContextMenuListener(listener: (item: Book, menu: ContextMenu, v: View,
+                                          menuInfo: ContextMenu.ContextMenuInfo?) -> Unit) {
+        adapter.contextMenuListener = listener
+    }
+
+
     private class BookListAdapter : RecyclerView.Adapter<BookListViewHolder>() {
 
         var items: List<Book> = emptyList()
@@ -65,6 +77,9 @@ class MultipleBookRecyclerList : RecyclerView {
             runFilter(newValue)
         }
         var clickListener: (Book) -> Unit = {}
+        var contextMenuListener: (Book, ContextMenu, View,
+                                  ContextMenu.ContextMenuInfo?) -> Unit = { _, _, _, _ -> }
+
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookListViewHolder {
             val inflater = LayoutInflater.from(parent.context)
@@ -79,6 +94,7 @@ class MultipleBookRecyclerList : RecyclerView {
 
         override fun onBindViewHolder(holder: BookListViewHolder, position: Int) {
             holder.setBook(filtered[position])
+            holder.setContextMenuListener(contextMenuListener)
         }
 
         private fun runFilter(predicate: (Book) -> Boolean) {
@@ -94,15 +110,24 @@ class MultipleBookRecyclerList : RecyclerView {
         private val titleView: TextView = view.findViewById(R.id.book_title)
         private val isbnView: TextView = view.findViewById(R.id.book_isbn)
         private val authorView: TextView = view.findViewById(R.id.book_author)
+        private var book: Book? = null
 
         init {
             view.setOnClickListener { clickListener.invoke(adapterPosition) }
         }
 
         fun setBook(book: Book) {
+            this.book = book
             titleView.text = book.title
             isbnView.text = book.isbn
             authorView.text = book.authors.joinToString(", ")
+        }
+
+        fun setContextMenuListener(listener: (Book, ContextMenu, View,
+                                              ContextMenu.ContextMenuInfo?) -> Unit) {
+            itemView.setOnCreateContextMenuListener({ menu, v, menuInfo ->
+                listener.invoke(book!!, menu, v, menuInfo)
+            })
         }
     }
 }
