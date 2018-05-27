@@ -61,7 +61,6 @@ class BookDetailFragment : BaseFragment(), BookDetailFragmentContract.View {
     }
 
     private fun setBook(book: Book) {
-        println("SET!")
         val dataList: MutableList<Pair<String, String>> = mutableListOf(
                 "title" to book.title,
                 "authors" to book.authors.joinToString("\n"), // position two
@@ -87,7 +86,6 @@ class BookDetailFragment : BaseFragment(), BookDetailFragmentContract.View {
         (book_detail_list.adapter as BookDetailAdapter).data = dataList.map {
             it.first.translateIfPossible() to it.second
         }
-        println("Done")
     }
 
     private fun String.translateIfPossible(): String {
@@ -110,7 +108,6 @@ class BookDetailFragment : BaseFragment(), BookDetailFragmentContract.View {
             set(value) {
                 field = value
                 notifyDataSetChanged()
-                println("Set to $value")
             }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookDetailViewHolder {

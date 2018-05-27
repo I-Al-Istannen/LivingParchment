@@ -23,9 +23,7 @@ class QueryBookRequest(
                         "queryType" to queryType.name,
                         "queryString" to query,
                         "attributeName" to attribute
-                )).apply {
-                    println(cUrlString())
-                }
+                ))
     }
 
     override fun parse(responseString: String): BookResponse = responseString.fromJson()
