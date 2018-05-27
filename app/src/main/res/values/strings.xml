@@ -53,4 +53,5 @@
     <string name="activity_settings_title">Settings</string>
     <string name="activity_add_book_location_label">Location</string>
     <string name="activity_add_book_no_location">No location</string>
+    <string name="editable_list_editable_field_hint">Editable field</string>
 </resources>
