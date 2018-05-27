@@ -36,6 +36,13 @@ interface ManageBookLocationContract {
          * @param error the error message to display
          */
         fun displayGenericError(error: String)
+
+        /**
+         * Sets the refresh status (i.e. toggles indicators).
+         *
+         * @param refreshes whether the layout is refreshing
+         */
+        fun setRefreshing(refreshes: Boolean)
     }
 
     interface Presenter : me.ialistannen.livingparchment.feature.Presenter {
@@ -54,5 +61,10 @@ interface ManageBookLocationContract {
          * @param bookLocation the location to delete
          */
         fun deleteLocation(bookLocation: BookLocation)
+
+        /**
+         * Refreshes the data.
+         */
+        fun refresh()
     }
 }

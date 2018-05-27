@@ -54,6 +54,14 @@ class ManageBookLocationActivity : BaseActivity(), ManageBookLocationContract.Vi
                         true
                     }
         }
+
+        swipe_layout.setOnRefreshListener {
+            presenter.refresh()
+        }
+    }
+
+    override fun setRefreshing(refreshes: Boolean) {
+        swipe_layout.isRefreshing = refreshes
     }
 
     override fun displayLocations(locations: List<BookLocation>) {

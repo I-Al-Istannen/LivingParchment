@@ -19,13 +19,21 @@ class AddLocationPresenter @Inject constructor(
 ) : BasePresenter(), ManageBookLocationContract.Presenter {
 
     override fun onCreate() {
-        refresh()
+        refreshSilenty(true)
     }
 
-    private fun refresh() {
+    private fun refreshSilenty(silent: Boolean) {
+        if (!silent) {
+            view.setRefreshing(false)
+        }
+
         async {
             requestor.executeRequest(QueryBookLocationRequest(serverConfig))
         } flattenUi {
+            if (!silent) {
+                view.setRefreshing(false)
+            }
+
             when (it) {
                 is Result.Success -> view.displayLocations(it.value.locations.sortedBy { it.name })
                 is Result.Failure -> {
@@ -35,6 +43,10 @@ class AddLocationPresenter @Inject constructor(
                 }
             }
         }
+    }
+
+    override fun refresh() {
+        refreshSilenty(false)
     }
 
     override fun addLocation(name: String, description: String) {
