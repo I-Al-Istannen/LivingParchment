@@ -48,6 +48,10 @@ class BookListFragment : BaseFragment(), BookListFragmentContract.View {
         view.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 book_list.filter(getBookFilter(query))
+
+                view.setQuery("", false)
+                view.isIconified = true
+                view.clearFocus()
                 return true
             }
 
