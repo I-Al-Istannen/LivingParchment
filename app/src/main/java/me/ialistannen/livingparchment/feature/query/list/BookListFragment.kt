@@ -9,8 +9,10 @@ import me.ialistannen.livingparchment.R
 import me.ialistannen.livingparchment.common.model.Book
 import me.ialistannen.livingparchment.feature.BaseFragment
 import me.ialistannen.livingparchment.feature.query.QueryNavigator
+import me.ialistannen.livingparchment.util.hideKeyboard
 import java.text.DateFormat
 import javax.inject.Inject
+
 
 class BookListFragment : BaseFragment(), BookListFragmentContract.View {
 
@@ -47,11 +49,9 @@ class BookListFragment : BaseFragment(), BookListFragmentContract.View {
 
         view.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
-                book_list.filter(getBookFilter(query))
+                view.hideKeyboard()
 
-                view.setQuery("", false)
-                view.isIconified = true
-                view.clearFocus()
+                book_list.filter(getBookFilter(query))
                 return true
             }
 
