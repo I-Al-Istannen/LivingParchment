@@ -4,9 +4,7 @@ import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.TextView
 import kotlinx.android.synthetic.main.fragment_book_detail.*
 import me.ialistannen.livingparchment.R
@@ -14,6 +12,7 @@ import me.ialistannen.livingparchment.common.model.Book
 import me.ialistannen.livingparchment.common.serialization.fromJson
 import me.ialistannen.livingparchment.common.serialization.toJson
 import me.ialistannen.livingparchment.feature.BaseFragment
+import me.ialistannen.livingparchment.feature.query.QueryNavigator
 import me.ialistannen.livingparchment.util.addSpacingDecoration
 import java.text.DateFormat
 import javax.inject.Inject
@@ -35,6 +34,11 @@ class BookDetailFragment : BaseFragment(), BookDetailFragmentContract.View {
     @Inject
     override lateinit var presenter: BookDetailFragmentContract.Presenter
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return inflater.inflate(R.layout.fragment_book_detail, container, false)
     }
@@ -49,11 +53,26 @@ class BookDetailFragment : BaseFragment(), BookDetailFragmentContract.View {
 
         if (arguments.containsKey("book")) {
             val book = arguments.getString("book").fromJson<Book>()
-            setBook(book)
+            presenter.setBook(book)
         }
     }
 
-    private fun setBook(book: Book) {
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.fragment_book_detail_action_bar, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.edit_book_menu_item -> {
+                presenter.editRequested()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    override fun displayBook(book: Book) {
         val dataList: MutableList<Pair<String, String>> = mutableListOf(
                 "title" to book.title,
                 "authors" to book.authors.joinToString("\n"), // position two
@@ -96,6 +115,10 @@ class BookDetailFragment : BaseFragment(), BookDetailFragmentContract.View {
         }
 
         return resources.getString(identifier)
+    }
+
+    override fun displayEditScreen(book: Book) {
+        (activity as? QueryNavigator)?.displayEditPage(book)
     }
 
     private class BookDetailAdapter : RecyclerView.Adapter<BookDetailViewHolder>() {

@@ -17,4 +17,11 @@ interface QueryNavigator {
      * @param books the books returned
      */
     fun displayResults(books: List<Book>)
+
+    /**
+     * Display the page to edit a book.
+     *
+     * @param book the book to edit
+     */
+    fun displayEditPage(book: Book)
 }

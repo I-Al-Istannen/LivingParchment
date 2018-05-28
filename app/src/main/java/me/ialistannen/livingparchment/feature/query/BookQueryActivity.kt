@@ -7,6 +7,7 @@ import kotlinx.android.synthetic.main.activity_book_query.*
 import me.ialistannen.livingparchment.R
 import me.ialistannen.livingparchment.common.model.Book
 import me.ialistannen.livingparchment.feature.BaseActivity
+import me.ialistannen.livingparchment.feature.edit.EditScreenFragment
 import me.ialistannen.livingparchment.feature.query.detail.BookDetailFragment
 import me.ialistannen.livingparchment.feature.query.list.BookListFragment
 import me.ialistannen.livingparchment.feature.query.query.QueryFragment
@@ -47,6 +48,13 @@ class BookQueryActivity : BaseActivity(), QueryScreenContract.View, QueryNavigat
         fragmentManager.beginTransaction()
                 .addToBackStack(null)
                 .replace(fragment_container.id, BookListFragment().apply { setBooks(books) })
+                .commit()
+    }
+
+    override fun displayEditPage(book: Book) {
+        fragmentManager.beginTransaction()
+                .addToBackStack(null)
+                .replace(fragment_container.id, EditScreenFragment.forBook(book))
                 .commit()
     }
 
