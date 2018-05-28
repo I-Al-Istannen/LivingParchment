@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import kotlinx.android.synthetic.main.fragment_book_query.*
 import me.ialistannen.livingparchment.R
 import me.ialistannen.livingparchment.common.api.query.QueryType
@@ -43,14 +42,10 @@ class QueryFragment : BaseFragment(), QueryFragmentContract.View {
         val navigator = (activity as? QueryNavigator)
 
         if (navigator == null) {
-            displayGenericError("In wrong activity! Not attached to navigator.")
+            displayMessage("In wrong activity! Not attached to navigator.")
             return
         }
 
         navigator.displayResults(books)
-    }
-
-    override fun displayGenericError(message: String) {
-        Toast.makeText(activity, message, Toast.LENGTH_LONG).show()
     }
 }

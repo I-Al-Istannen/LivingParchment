@@ -31,11 +31,11 @@ interface ManageBookLocationContract {
         fun displayAddStatus(status: BookLocationAddStatus)
 
         /**
-         * Displays a generic error message.
+         * Displays a message.
          *
-         * @param error the error message to display
+         * @param message the message
          */
-        fun displayGenericError(error: String)
+        fun displayMessage(message: String)
 
         /**
          * Sets the refresh status (i.e. toggles indicators).

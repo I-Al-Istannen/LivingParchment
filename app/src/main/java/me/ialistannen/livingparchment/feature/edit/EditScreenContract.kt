@@ -23,11 +23,11 @@ interface EditScreenContract {
         fun displayPatchStatus(status: BookPatchStatus)
 
         /**
-         * Displays a generic error message.
+         * Displays a message.
          *
-         * @param error the error message
+         * @param message the message
          */
-        fun displayGenericError(error: String)
+        fun displayMessage(message: String)
     }
 
     interface Presenter : me.ialistannen.livingparchment.feature.Presenter {

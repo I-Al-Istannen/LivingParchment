@@ -2,7 +2,6 @@ package me.ialistannen.livingparchment.feature.query
 
 import android.os.Bundle
 import android.support.v7.widget.Toolbar
-import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_book_query.*
 import me.ialistannen.livingparchment.R
 import me.ialistannen.livingparchment.common.model.Book
@@ -56,9 +55,5 @@ class BookQueryActivity : BaseActivity(), QueryScreenContract.View, QueryNavigat
                 .addToBackStack(null)
                 .replace(fragment_container.id, EditScreenFragment.forBook(book))
                 .commit()
-    }
-
-    override fun displayGenericError(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }
 }

@@ -24,7 +24,7 @@ class DeleteScreenPresenter @Inject constructor(
                     view.setIsbnInputText(it.value.isbn)
                 }
                 is Result.Failure -> {
-                    view.showGenericError(it.getException().localizedMessage)
+                    view.displayMessage(it.getException().localizedMessage)
                 }
             }
         }

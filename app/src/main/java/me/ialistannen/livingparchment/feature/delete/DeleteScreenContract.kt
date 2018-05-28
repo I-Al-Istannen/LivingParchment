@@ -8,11 +8,11 @@ interface DeleteScreenContract {
     interface View : BaseView {
 
         /**
-         * Shows a generic error message.
+         * Shows a message.
          *
-         * @param error the error message to display
+         * @param message the message to display
          */
-        fun showGenericError(error: String)
+        fun displayMessage(message: String)
 
         /**
          * Shows the status of the delete request.

@@ -1,10 +1,12 @@
 package me.ialistannen.livingparchment.feature
 
+import android.content.Context
 import android.os.Bundle
 import android.support.annotation.CallSuper
 import dagger.android.DaggerFragment
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.coroutines.experimental.Job
+import me.ialistannen.livingparchment.util.CanDisplayMessage
 
 interface Presenter {
 
@@ -24,7 +26,7 @@ interface BaseView
 /**
  * The base activity that handles presenters.
  */
-abstract class BaseActivity : DaggerAppCompatActivity(), CoroutineHolder {
+abstract class BaseActivity : DaggerAppCompatActivity(), CoroutineHolder, CanDisplayMessage {
 
     override val job: Job = Job()
 
@@ -32,6 +34,8 @@ abstract class BaseActivity : DaggerAppCompatActivity(), CoroutineHolder {
      * The presenter this activity uses.
      */
     protected abstract val presenter: Presenter
+
+    override fun getMessageContext(): Context = this
 
     @CallSuper
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,7 +62,7 @@ abstract class BaseActivity : DaggerAppCompatActivity(), CoroutineHolder {
 /**
  * The base activity that handles presenters.
  */
-abstract class BaseFragment : DaggerFragment(), CoroutineHolder {
+abstract class BaseFragment : DaggerFragment(), CoroutineHolder, CanDisplayMessage {
 
     override val job: Job = Job()
 
@@ -66,6 +70,8 @@ abstract class BaseFragment : DaggerFragment(), CoroutineHolder {
      * The presenter this activity uses.
      */
     protected abstract val presenter: Presenter
+
+    override fun getMessageContext(): Context = activity
 
     @CallSuper
     override fun onCreate(savedInstanceState: Bundle?) {

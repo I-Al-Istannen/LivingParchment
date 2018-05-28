@@ -43,7 +43,7 @@ class EditScreenPresenter @Inject constructor(
                 is Result.Success -> view.displayPatchStatus(it.value.status)
                 is Result.Failure -> {
                     val exception = it.getException()
-                    view.displayGenericError(exception.localizedMessage)
+                    view.displayMessage(exception.localizedMessage)
                     Log.i("EditScreenPresenter", "Error patching book", exception)
                 }
             }

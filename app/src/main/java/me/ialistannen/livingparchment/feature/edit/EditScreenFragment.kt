@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import kotlinx.android.synthetic.main.fragment_book_edit.*
 import me.ialistannen.livingparchment.R
 import me.ialistannen.livingparchment.common.api.response.BookPatchStatus
@@ -59,13 +58,9 @@ class EditScreenFragment : BaseFragment(), EditScreenContract.View {
 
     override fun displayPatchStatus(status: BookPatchStatus) {
         when (status) {
-            BookPatchStatus.PATCHED -> displayGenericError("Book patched!")
-            BookPatchStatus.INTERNAL_ERROR -> displayGenericError("An internal error occurred")
-            BookPatchStatus.NOT_FOUND -> displayGenericError("Book not found")
+            BookPatchStatus.PATCHED -> displayMessage("Book patched!")
+            BookPatchStatus.INTERNAL_ERROR -> displayMessage("An internal error occurred")
+            BookPatchStatus.NOT_FOUND -> displayMessage("Book not found")
         }
-    }
-
-    override fun displayGenericError(error: String) {
-        Toast.makeText(activity, error, Toast.LENGTH_LONG).show()
     }
 }

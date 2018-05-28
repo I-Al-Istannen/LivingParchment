@@ -57,11 +57,7 @@ class BookAddActivity : IsbnScanActivity(), AddScreenContract.View {
     }
 
     override fun displayAddFailed(message: String) {
-        displayGenericerror(message)
-    }
-
-    override fun displayGenericerror(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+        displayMessage(message)
     }
 
     override fun setInputIsbn(isbn: String) {

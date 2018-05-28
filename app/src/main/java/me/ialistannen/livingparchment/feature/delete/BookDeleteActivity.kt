@@ -35,10 +35,6 @@ class BookDeleteActivity : IsbnScanActivity(), DeleteScreenContract.View {
         presenter.delete(isbn)
     }
 
-    override fun showGenericError(error: String) {
-        Toast.makeText(this, error, Toast.LENGTH_LONG).show()
-    }
-
     override fun showStatus(bookDeleteStatus: BookDeleteStatus) {
         val message = when (bookDeleteStatus) {
             BookDeleteStatus.DELETED -> getString(R.string.activity_delete_book_deleted)

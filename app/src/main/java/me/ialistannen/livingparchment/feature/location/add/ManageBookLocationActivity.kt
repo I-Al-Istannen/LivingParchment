@@ -4,7 +4,6 @@ import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.EditText
-import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_manage_book_location.*
 import me.ialistannen.livingparchment.R
 import me.ialistannen.livingparchment.common.api.response.BookLocationAddStatus
@@ -77,19 +76,15 @@ class ManageBookLocationActivity : BaseActivity(), ManageBookLocationContract.Vi
 
     override fun displayDeleteStatus(status: BookLocationDeleteStatus) {
         when (status) {
-            BookLocationDeleteStatus.DELETED -> displayGenericError("Deleted location!")
-            BookLocationDeleteStatus.INTERNAL_ERROR -> displayGenericError("Internal server error")
+            BookLocationDeleteStatus.DELETED -> displayMessage("Deleted location!")
+            BookLocationDeleteStatus.INTERNAL_ERROR -> displayMessage("Internal server error")
         }
     }
 
     override fun displayAddStatus(status: BookLocationAddStatus) {
         when (status) {
-            BookLocationAddStatus.ADDED -> displayGenericError("Added location!")
-            BookLocationAddStatus.INTERNAL_ERROR -> displayGenericError("Internal server error")
+            BookLocationAddStatus.ADDED -> displayMessage("Added location!")
+            BookLocationAddStatus.INTERNAL_ERROR -> displayMessage("Internal server error")
         }
-    }
-
-    override fun displayGenericError(error: String) {
-        Toast.makeText(this, error, Toast.LENGTH_LONG).show()
     }
 }

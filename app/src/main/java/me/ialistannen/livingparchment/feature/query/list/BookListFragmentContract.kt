@@ -16,11 +16,11 @@ interface BookListFragmentContract {
         fun displayDetailPage(book: Book)
 
         /**
-         * Display a generic error message.
+         * Display a message.
          *
-         * @param error the error message to display
+         * @param message the message to display
          */
-        fun displayGenericError(error: String)
+        fun displayMessage(message: String)
 
         /**
          * Displays the delete status.

@@ -42,7 +42,7 @@ class BookListPresenter @Inject constructor(
                     view.displayBooks(books)
                 }
                 is Result.Failure -> {
-                    view.displayGenericError(it.getException().localizedMessage)
+                    view.displayMessage(it.getException().localizedMessage)
                 }
             }
         }

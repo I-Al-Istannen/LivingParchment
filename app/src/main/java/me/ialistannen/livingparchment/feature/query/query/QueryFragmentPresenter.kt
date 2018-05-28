@@ -24,7 +24,7 @@ class QueryFragmentPresenter @Inject constructor(
             when (it) {
                 is Result.Success -> view.displayResults(it.value.books)
                 is Result.Failure -> {
-                    view.displayGenericError(it.getException().localizedMessage)
+                    view.displayMessage(it.getException().localizedMessage)
                     Log.w("hey", it.getException())
                 }
             }

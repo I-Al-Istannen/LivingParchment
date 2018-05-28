@@ -24,7 +24,7 @@ class AddScreenPresenter @Inject constructor(
             when (it) {
                 is Result.Success -> view.setAvailableLocations(it.value.locations)
                 is Result.Failure -> {
-                    view.displayGenericerror(it.getException().localizedMessage)
+                    view.displayMessage(it.getException().localizedMessage)
                     Log.i("AddScreenPresenter", "Error getting locations", it.getException())
                 }
             }

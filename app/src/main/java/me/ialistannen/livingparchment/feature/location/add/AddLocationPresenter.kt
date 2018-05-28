@@ -38,7 +38,7 @@ class AddLocationPresenter @Inject constructor(
                 is Result.Success -> view.displayLocations(it.value.locations.sortedBy { it.name })
                 is Result.Failure -> {
                     val exception = it.getException()
-                    view.displayGenericError(exception.localizedMessage)
+                    view.displayMessage(exception.localizedMessage)
                     Log.i("AddLocationPresenter", "Error getting locations", exception)
                 }
             }
@@ -61,7 +61,7 @@ class AddLocationPresenter @Inject constructor(
                 }
                 is Result.Failure -> {
                     val exception = it.getException()
-                    view.displayGenericError(exception.localizedMessage)
+                    view.displayMessage(exception.localizedMessage)
                     Log.i("AddLocationPresenter", "Error adding a location", exception)
                 }
             }
@@ -79,7 +79,7 @@ class AddLocationPresenter @Inject constructor(
                 }
                 is Result.Failure -> {
                     val exception = it.getException()
-                    view.displayGenericError(exception.localizedMessage)
+                    view.displayMessage(exception.localizedMessage)
                     Log.i("AddLocationPresenter", "Error deleting a location", exception)
                 }
             }

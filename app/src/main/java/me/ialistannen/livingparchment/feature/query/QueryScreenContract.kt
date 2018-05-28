@@ -22,11 +22,11 @@ interface QueryScreenContract {
         fun displayResults(books: List<Book>)
 
         /**
-         * Displays a generic error message.
+         * Displays a message.
          *
          * @param message the error message
          */
-        fun displayGenericError(message: String)
+        fun displayMessage(message: String)
     }
 
     interface Presenter : me.ialistannen.livingparchment.feature.Presenter

@@ -103,15 +103,11 @@ class BookListFragment : BaseFragment(), BookListFragmentContract.View {
         navigator.displayDetailPage(book)
     }
 
-    override fun displayGenericError(error: String) {
-        Toast.makeText(activity, error, Toast.LENGTH_LONG).show()
-    }
-
     override fun displayDeleteStatus(status: BookDeleteStatus) {
         when (status) {
-            BookDeleteStatus.DELETED -> displayGenericError("Book deleted")
-            BookDeleteStatus.INTERNAL_ERROR -> displayGenericError("An internal error occurred.")
-            BookDeleteStatus.NOT_FOUND -> displayGenericError("Book not found.")
+            BookDeleteStatus.DELETED -> displayMessage("Book deleted")
+            BookDeleteStatus.INTERNAL_ERROR -> displayMessage("An internal error occurred.")
+            BookDeleteStatus.NOT_FOUND -> displayMessage("Book not found.")
         }
     }
 

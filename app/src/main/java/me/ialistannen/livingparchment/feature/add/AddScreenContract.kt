@@ -9,11 +9,11 @@ interface AddScreenContract {
     interface View : BaseView {
 
         /**
-         * Displays a generic error message.
+         * Displays a message.
          *
-         * @param message a message explaining the error
+         * @param message the message
          */
-        fun displayGenericerror(message: String)
+        fun displayMessage(message: String)
 
         /**
          * Adding was not successful
