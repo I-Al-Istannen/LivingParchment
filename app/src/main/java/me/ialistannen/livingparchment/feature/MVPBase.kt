@@ -3,6 +3,7 @@ package me.ialistannen.livingparchment.feature
 import android.content.Context
 import android.os.Bundle
 import android.support.annotation.CallSuper
+import android.support.v7.app.AppCompatActivity
 import dagger.android.DaggerFragment
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.coroutines.experimental.Job
@@ -86,6 +87,15 @@ abstract class BaseFragment : DaggerFragment(), CoroutineHolder, CanDisplayMessa
         super.onDestroy()
         presenter.onDestroy()
         job.cancel()
+    }
+
+    /**
+     * Sets the title of the action bar.
+     *
+     * @param title the title to set
+     */
+    protected fun setActionbarTitle(title: String) {
+        (activity as? AppCompatActivity)?.supportActionBar?.title = title
     }
 }
 

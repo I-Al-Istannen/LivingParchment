@@ -61,4 +61,7 @@
     <string name="editable_list_editable_field_hint">Value…</string>
     <string name="fragment_book_detail_edit_action_bar">Edit</string>
     <string name="fragment_book_detail_edit_delete_location">No location</string>
+    <string name="fragment_book_detail_edit_title">Edit book</string>
+    <string name="fragment_book_list_title">Query Results</string>
+    <string name="fragment_book_detail_fragment_title">Book Information</string>
 </resources>

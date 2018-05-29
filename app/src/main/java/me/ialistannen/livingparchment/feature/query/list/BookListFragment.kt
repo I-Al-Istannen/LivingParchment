@@ -49,6 +49,8 @@ class BookListFragment : BaseFragment(), BookListFragmentContract.View {
         }
 
         presenter.onViewCreated()
+
+        setActionbarTitle(getString(R.string.fragment_book_list_title))
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

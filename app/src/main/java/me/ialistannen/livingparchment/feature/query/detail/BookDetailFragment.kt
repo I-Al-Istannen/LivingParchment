@@ -55,6 +55,8 @@ class BookDetailFragment : BaseFragment(), BookDetailFragmentContract.View {
             val book = arguments.getString("book").fromJson<Book>()
             presenter.setBook(book)
         }
+
+        setActionbarTitle(getString(R.string.fragment_book_detail_fragment_title))
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater) {

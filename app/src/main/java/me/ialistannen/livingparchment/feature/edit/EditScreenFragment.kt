@@ -57,6 +57,8 @@ class EditScreenFragment : BaseFragment(), EditScreenContract.View {
         add_location_button.setOnClickListener {
             presenter.addLocationRequested()
         }
+
+        setActionbarTitle(getString(R.string.fragment_book_detail_edit_title))
     }
 
     override fun displayProperties(properties: List<EditableProperty>) {
