@@ -1,5 +1,6 @@
 package me.ialistannen.livingparchment.feature.query.list
 
+import me.ialistannen.livingparchment.common.api.query.QueryType
 import me.ialistannen.livingparchment.common.api.response.BookDeleteStatus
 import me.ialistannen.livingparchment.common.model.Book
 import me.ialistannen.livingparchment.feature.BaseView
@@ -35,6 +36,13 @@ interface BookListFragmentContract {
          * @param books the books to display
          */
         fun displayBooks(books: List<Book>)
+
+        /**
+         * Sets whether the screen is currently refreshing.
+         *
+         * @param refreshing true if it is refreshing
+         */
+        fun setRefreshIndicator(refreshing: Boolean)
     }
 
     interface Presenter : me.ialistannen.livingparchment.feature.Presenter {
@@ -58,11 +66,25 @@ interface BookListFragmentContract {
          *
          * @param books the books
          */
-        fun setBooks(books: List<Book>)
+        fun setBooks(books: List<Book>?)
 
         /**
          * Called when the view is fully initialized.
          */
         fun onViewCreated()
+
+        /**
+         * Called when the user requests a refresh.
+         */
+        fun onRefreshRequested()
+
+        /**
+         * Set the query to use when refreshing or when the cache was GCed-
+         *
+         * @param queryType the type of the query
+         * @param attribute the attribute to search for
+         * @param query the query to use
+         */
+        fun setQuery(queryType: QueryType, attribute: String, query: String)
     }
 }

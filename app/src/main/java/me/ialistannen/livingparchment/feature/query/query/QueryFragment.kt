@@ -38,7 +38,8 @@ class QueryFragment : BaseFragment(), QueryFragmentContract.View {
         }
     }
 
-    override fun displayResults(books: List<Book>) {
+    override fun displayResults(books: List<Book>, queryType: QueryType, attribute: String,
+                                query: String) {
         val navigator = (activity as? QueryNavigator)
 
         if (navigator == null) {
@@ -46,6 +47,6 @@ class QueryFragment : BaseFragment(), QueryFragmentContract.View {
             return
         }
 
-        navigator.displayResults(books)
+        navigator.displayResults(books, queryType, attribute, query)
     }
 }

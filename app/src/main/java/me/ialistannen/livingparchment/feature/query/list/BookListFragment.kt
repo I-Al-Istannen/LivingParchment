@@ -6,6 +6,7 @@ import android.widget.SearchView
 import android.widget.Toast
 import kotlinx.android.synthetic.main.fragment_book_query_list.*
 import me.ialistannen.livingparchment.R
+import me.ialistannen.livingparchment.common.api.query.QueryType
 import me.ialistannen.livingparchment.common.api.response.BookDeleteStatus
 import me.ialistannen.livingparchment.common.model.Book
 import me.ialistannen.livingparchment.feature.BaseFragment
@@ -16,6 +17,30 @@ import javax.inject.Inject
 
 
 class BookListFragment : BaseFragment(), BookListFragmentContract.View {
+
+    companion object {
+
+        /**
+         * Creates a book list fragment that displays data and will redo the given query if the
+         * cache is garbage collected.
+         *
+         * @param queryType the type of the query
+         * @param attribute the attribute to search for
+         * @param query the query to use
+         * @param queryResult the result of running the query
+         */
+        fun forQuery(queryType: QueryType, attribute: String, query: String,
+                     queryResult: List<Book>): BookListFragment {
+            return BookListFragment().apply {
+                arguments = Bundle().apply {
+                    putString("queryType", queryType.name)
+                    putString("attribute", attribute)
+                    putString("query", query)
+                }
+                setBooks(queryResult)
+            }
+        }
+    }
 
     @Inject
     override lateinit var presenter: BookListFragmentContract.Presenter
@@ -34,11 +59,14 @@ class BookListFragment : BaseFragment(), BookListFragmentContract.View {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        if (books != null) {
-            presenter.setBooks(books!!)
-            // the presenter should persist them. They are likely too big for arguments
-            books = null
-        }
+        presenter.setQuery(
+                QueryType.valueOf(arguments.getString("queryType")),
+                arguments.getString("attribute"),
+                arguments.getString("query")
+        )
+        presenter.setBooks(books)
+        // the presenter should persist them. They are likely too big for arguments
+        books = null
 
         book_list.setClickListener { presenter.bookSelected(it) }
 
@@ -53,6 +81,18 @@ class BookListFragment : BaseFragment(), BookListFragmentContract.View {
         presenter.onViewCreated()
 
         setActionbarTitle(getString(R.string.fragment_book_list_title))
+
+        swipe_layout.setOnRefreshListener { presenter.onRefreshRequested() }
+        @Suppress("DEPRECATION")
+        swipe_layout.setColorSchemeColors(
+                resources.getColor(R.color.colorPrimary),
+                resources.getColor(R.color.colorPrimaryDark),
+                resources.getColor(R.color.colorAccent)
+        )
+    }
+
+    override fun setRefreshIndicator(refreshing: Boolean) {
+        swipe_layout.isRefreshing = refreshing
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

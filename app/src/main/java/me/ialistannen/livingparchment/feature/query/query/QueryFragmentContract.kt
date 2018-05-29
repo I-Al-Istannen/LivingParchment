@@ -12,8 +12,11 @@ interface QueryFragmentContract {
          * Displays the results of a query.
          *
          * @param books the books returned
+         * @param queryType the type of the query
+         * @param attribute the attribute to query
+         * @param query the query to run
          */
-        fun displayResults(books: List<Book>)
+        fun displayResults(books: List<Book>, queryType: QueryType, attribute: String, query: String)
 
         /**
          * Displays a message.

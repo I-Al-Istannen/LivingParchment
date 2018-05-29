@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v7.widget.Toolbar
 import kotlinx.android.synthetic.main.activity_book_query.*
 import me.ialistannen.livingparchment.R
+import me.ialistannen.livingparchment.common.api.query.QueryType
 import me.ialistannen.livingparchment.common.model.Book
 import me.ialistannen.livingparchment.feature.BaseActivity
 import me.ialistannen.livingparchment.feature.edit.EditScreenFragment
@@ -43,10 +44,12 @@ class BookQueryActivity : BaseActivity(), QueryScreenContract.View, QueryNavigat
                 .commit()
     }
 
-    override fun displayResults(books: List<Book>) {
+    override fun displayResults(books: List<Book>, queryType: QueryType, attribute: String, query: String) {
         fragmentManager.beginTransaction()
                 .addToBackStack(null)
-                .replace(fragment_container.id, BookListFragment().apply { setBooks(books) })
+                .replace(fragment_container.id, BookListFragment.forQuery(
+                        queryType, attribute, query, books
+                ))
                 .commit()
     }
 

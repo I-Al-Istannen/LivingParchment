@@ -22,7 +22,7 @@ class QueryFragmentPresenter @Inject constructor(
             requestor.executeRequest(QueryBookRequest(serverConfig, queryType, attribute, query))
         } flattenUi {
             when (it) {
-                is Result.Success -> view.displayResults(it.value.books)
+                is Result.Success -> view.displayResults(it.value.books, queryType, attribute, query)
                 is Result.Failure -> {
                     view.displayMessage(it.getException().localizedMessage)
                     Log.w("hey", it.getException())
