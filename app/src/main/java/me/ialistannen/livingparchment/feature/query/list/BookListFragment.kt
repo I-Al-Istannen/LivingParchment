@@ -3,7 +3,6 @@ package me.ialistannen.livingparchment.feature.query.list
 import android.os.Bundle
 import android.view.*
 import android.widget.SearchView
-import android.widget.Toast
 import kotlinx.android.synthetic.main.fragment_book_query_list.*
 import me.ialistannen.livingparchment.R
 import me.ialistannen.livingparchment.common.api.query.QueryType
@@ -22,7 +21,7 @@ class BookListFragment : BaseFragment(), BookListFragmentContract.View {
 
         /**
          * Creates a book list fragment that displays data and will redo the given query if the
-         * cache is garbage collected.
+         * cache is garbage collected or the user wants to refresh it.
          *
          * @param queryType the type of the query
          * @param attribute the attribute to search for
@@ -136,11 +135,7 @@ class BookListFragment : BaseFragment(), BookListFragmentContract.View {
         val navigator = activity as? QueryNavigator
 
         if (navigator == null) {
-            Toast.makeText(
-                    activity,
-                    "Attached to wrong activity, not a navigator",
-                    Toast.LENGTH_LONG
-            ).show()
+            displayMessage("Attached to wrong activity, not a navigator")
             return
         }
 

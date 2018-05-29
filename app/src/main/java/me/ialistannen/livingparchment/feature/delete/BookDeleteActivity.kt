@@ -2,7 +2,6 @@ package me.ialistannen.livingparchment.feature.delete
 
 import android.os.Bundle
 import android.support.v7.widget.Toolbar
-import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_book_delete.*
 import me.ialistannen.livingparchment.R
 import me.ialistannen.livingparchment.common.api.response.BookDeleteStatus
@@ -42,7 +41,7 @@ class BookDeleteActivity : IsbnScanActivity(), DeleteScreenContract.View {
             BookDeleteStatus.INTERNAL_ERROR -> getString(R.string.status_internal_server_error)
         }
 
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+        displayMessage(message)
     }
 
     override fun setIsbnInputText(text: String) {

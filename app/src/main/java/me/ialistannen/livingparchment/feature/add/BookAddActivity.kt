@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.SpinnerAdapter
 import android.widget.TextView
-import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_book_add.*
 import me.ialistannen.livingparchment.R
 import me.ialistannen.livingparchment.common.api.response.BookAddStatus
@@ -53,7 +52,7 @@ class BookAddActivity : IsbnScanActivity(), AddScreenContract.View {
             BookAddStatus.INTERNAL_ERROR -> getString(R.string.status_internal_server_error)
         }
 
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+        displayMessage(message)
     }
 
     override fun displayAddFailed(message: String) {
