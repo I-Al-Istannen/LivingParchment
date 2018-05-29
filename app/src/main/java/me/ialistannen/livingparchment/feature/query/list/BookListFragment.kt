@@ -36,6 +36,8 @@ class BookListFragment : BaseFragment(), BookListFragmentContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         if (books != null) {
             presenter.setBooks(books!!)
+            // the presenter should persist them. They are likely too big for arguments
+            books = null
         }
 
         book_list.setClickListener { presenter.bookSelected(it) }

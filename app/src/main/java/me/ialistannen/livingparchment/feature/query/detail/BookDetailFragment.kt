@@ -13,11 +13,13 @@ import me.ialistannen.livingparchment.common.serialization.fromJson
 import me.ialistannen.livingparchment.common.serialization.toJson
 import me.ialistannen.livingparchment.feature.BaseFragment
 import me.ialistannen.livingparchment.feature.query.QueryNavigator
+import me.ialistannen.livingparchment.util.BookChangeListener
+import me.ialistannen.livingparchment.util.BookChangeListeners
 import me.ialistannen.livingparchment.util.addSpacingDecoration
 import java.text.DateFormat
 import javax.inject.Inject
 
-class BookDetailFragment : BaseFragment(), BookDetailFragmentContract.View {
+class BookDetailFragment : BaseFragment(), BookDetailFragmentContract.View, BookChangeListener {
 
     companion object {
 
@@ -57,6 +59,8 @@ class BookDetailFragment : BaseFragment(), BookDetailFragmentContract.View {
         }
 
         setActionbarTitle(getString(R.string.fragment_book_detail_fragment_title))
+
+        BookChangeListeners.addListener(this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater) {
@@ -71,6 +75,18 @@ class BookDetailFragment : BaseFragment(), BookDetailFragmentContract.View {
                 true
             }
             else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    // This should not be in the view, but it is recreated from the fragment arguments. So it sadly
+    // needs to be in here.
+    override fun onBookChanged(books: List<Book>) {
+        if (arguments.containsKey("book")) {
+            val thisBook = arguments.getString("book").fromJson<Book>()
+
+            books.firstOrNull { it.isbn == thisBook.isbn }?.let {
+                arguments.putString("book", it.toJson())
+            }
         }
     }
 

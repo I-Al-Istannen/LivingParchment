@@ -10,6 +10,7 @@ import me.ialistannen.livingparchment.request.Requestor
 import me.ialistannen.livingparchment.request.ServerConfig
 import me.ialistannen.livingparchment.request.change.BookChangeRequest
 import me.ialistannen.livingparchment.request.query.QueryBookLocationRequest
+import me.ialistannen.livingparchment.util.BookChangeListeners
 import javax.inject.Inject
 
 class EditScreenPresenter @Inject constructor(
@@ -84,13 +85,18 @@ class EditScreenPresenter @Inject constructor(
             )
         } flattenUi {
             when (it) {
-                is Result.Success -> view.displayPatchStatus(it.value.status)
+                is Result.Success -> {
+                    view.displayPatchStatus(it.value.status)
+                    displayedBook = it.value.book
+                }
                 is Result.Failure -> {
                     val exception = it.getException()
                     view.displayMessage(exception.localizedMessage)
                     Log.i("EditScreenPresenter", "Error patching book", exception)
                 }
             }
+
+            displayedBook?.let { BookChangeListeners.booksChanged(it) }
         }
     }
 
