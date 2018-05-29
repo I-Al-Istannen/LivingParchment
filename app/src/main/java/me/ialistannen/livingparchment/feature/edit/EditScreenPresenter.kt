@@ -4,10 +4,12 @@ import android.util.Log
 import com.github.kittinunf.result.Result
 import kotlinx.coroutines.experimental.async
 import me.ialistannen.livingparchment.common.model.Book
+import me.ialistannen.livingparchment.common.model.BookLocation
 import me.ialistannen.livingparchment.feature.BasePresenter
 import me.ialistannen.livingparchment.request.Requestor
 import me.ialistannen.livingparchment.request.ServerConfig
 import me.ialistannen.livingparchment.request.change.BookChangeRequest
+import me.ialistannen.livingparchment.request.query.QueryBookLocationRequest
 import javax.inject.Inject
 
 class EditScreenPresenter @Inject constructor(
@@ -18,12 +20,54 @@ class EditScreenPresenter @Inject constructor(
 
     private var displayedBook: Book? = null
     private var properties: List<EditableProperty> = emptyList()
+    private var locations: List<BookLocation> = emptyList()
 
     override fun setBook(book: Book) {
         displayedBook = book
 
         properties = buildProperties(book)
         view.displayProperties(properties)
+    }
+
+    override fun addLocationRequested() {
+        async(job) {
+            requestor.executeRequest(QueryBookLocationRequest(serverConfig))
+        } flattenUi {
+            when (it) {
+                is Result.Success -> {
+                    locations = it.value.locations
+                    view.displayLocations(it.value.locations.map { it.name })
+                }
+                is Result.Failure -> {
+                    val exception = it.getException()
+                    Log.i("EditScreenPresenter", "Error getting locations", exception)
+                    view.displayMessage(exception.localizedMessage)
+                }
+            }
+        }
+    }
+
+    override fun setLocation(location: String?) {
+        if (location == null) {
+            properties = properties.filterNot { it.name == "location" }
+
+            view.displayProperties(properties)
+            return
+        }
+
+        locations.firstOrNull { it.name == location }?.let {
+            var locationProperty = properties.find { it.name == "location" }
+            if (locationProperty == null) {
+                locationProperty = SimpleEditableProperty(
+                        "location", displayedBook!!.location?.name ?: "", { it }
+                )
+                properties += locationProperty
+            }
+
+            locationProperty.setValueFromString(it.name)
+
+            view.displayProperties(properties)
+        }
     }
 
     override fun commit() {
@@ -77,7 +121,7 @@ class EditScreenPresenter @Inject constructor(
         return SimpleEditableProperty(
                 name,
                 value,
-                { it.split(",") },
+                { it.split(", ").map(String::trim) },
                 { it.joinToString(", ") }
         )
     }

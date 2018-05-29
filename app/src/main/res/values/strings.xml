@@ -60,4 +60,5 @@
     <string name="activity_manage_book_location_delete">Delete</string>
     <string name="editable_list_editable_field_hint">Value…</string>
     <string name="fragment_book_detail_edit_action_bar">Edit</string>
+    <string name="fragment_book_detail_edit_delete_location">No location</string>
 </resources>
