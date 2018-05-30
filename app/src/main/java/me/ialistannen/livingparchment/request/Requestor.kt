@@ -6,10 +6,16 @@ import com.github.kittinunf.fuel.core.Response
 import com.github.kittinunf.result.Result
 import kotlinx.coroutines.experimental.suspendCancellableCoroutine
 import me.ialistannen.livingparchment.common.serialization.fromJson
+import me.ialistannen.livingparchment.request.auth.UserCredentials
 import java.nio.charset.Charset
 import javax.inject.Inject
 
-class Requestor @Inject constructor() {
+class Requestor @Inject constructor(
+        userCredentials: UserCredentials,
+        private val serverConfig: ServerConfig
+) {
+
+    private val authenticator: Authenticator = Authenticator(this, userCredentials)
 
     /**
      * Executes a given request.
@@ -18,10 +24,31 @@ class Requestor @Inject constructor() {
      * @return the result or an error
      */
     suspend fun <T : Any> executeRequest(baseRequest: BaseRequest<T>): Result<T, Exception> {
+        return executeRequest(baseRequest, 0)
+    }
+
+    /**
+     * Executes a given request.
+     *
+     * @receiver the request to execute
+     * @return the result or an error
+     */
+    private suspend fun <T : Any> executeRequest(baseRequest: BaseRequest<T>,
+                                                 retryCount: Int): Result<T, Exception> {
+        if (retryCount > 4) {
+            return Result.error(RuntimeException("Retries exceeded"))
+        }
+
         val request = baseRequest.buildRequest()
+        authenticator.modifyRequest(request)
 
         try {
             val (_, response, exception) = request.awaitResponse()
+
+            if (authenticator.authenticationNeeded(response)) {
+                authenticator.authenticate(serverConfig)
+                return executeRequest(baseRequest, retryCount + 1)
+            }
 
             if (exception != null) {
                 return Result.error(extractErrorFromResponse(response) ?: exception)

@@ -1,3 +1,7 @@
 package me.ialistannen.livingparchment.request
 
-data class ServerConfig(val url: String)
+class ServerConfig(private val urlProvider: () -> String) {
+
+    val url
+        get() = urlProvider.invoke()
+}
