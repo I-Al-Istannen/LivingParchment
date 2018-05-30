@@ -131,8 +131,9 @@ class MultipleBookRecyclerList : RecyclerView {
 
             Picasso.get().load("${serverConfig.url}/covers/${book.isbn}.jpg")
                     .fit()
-                    .placeholder(R.drawable.ic_image)
-                    .error(R.drawable.ic_broken_image)
+                    .centerInside()
+                    .placeholder(R.drawable.book_cover_placeholder)
+                    .error(R.drawable.book_cover_placeholder)
                     .into(previewImage)
         }
 

@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.*
 import android.widget.TextView
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_book_detail.*
 import me.ialistannen.livingparchment.R
 import me.ialistannen.livingparchment.common.model.Book
@@ -13,6 +14,7 @@ import me.ialistannen.livingparchment.common.serialization.fromJson
 import me.ialistannen.livingparchment.common.serialization.toJson
 import me.ialistannen.livingparchment.feature.BaseFragment
 import me.ialistannen.livingparchment.feature.query.QueryNavigator
+import me.ialistannen.livingparchment.request.ServerConfig
 import me.ialistannen.livingparchment.util.BookChangeListener
 import me.ialistannen.livingparchment.util.BookChangeListeners
 import me.ialistannen.livingparchment.util.addSpacingDecoration
@@ -35,6 +37,9 @@ class BookDetailFragment : BaseFragment(), BookDetailFragmentContract.View, Book
 
     @Inject
     override lateinit var presenter: BookDetailFragmentContract.Presenter
+
+    @Inject
+    lateinit var serverConfig: ServerConfig
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -119,6 +124,14 @@ class BookDetailFragment : BaseFragment(), BookDetailFragmentContract.View, Book
         (book_detail_list.adapter as BookDetailAdapter).data = dataList.map {
             it.first.translateIfPossible() to it.second
         }
+
+        Picasso.get().load("${serverConfig.url}/covers/${book.isbn}.jpg")
+                .fit()
+                .centerInside()
+                .placeholder(R.drawable.book_cover_placeholder)
+                .error(R.drawable.book_cover_placeholder)
+                .into(book_cover_image)
+
     }
 
     private fun String.translateIfPossible(): String {
