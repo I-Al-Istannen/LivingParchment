@@ -38,8 +38,10 @@ class BookListPresenter @Inject constructor(
     }
 
     override fun setBooks(books: List<Book>?) {
-        if (books == null) {
+        if (books == null && this.books.isEmpty()) {
             onRefreshRequested()
+        } else if (books == null) {
+            view.displayBooks(this.books)
         } else {
             this.books = books.sortedBy { it.title }.toMutableList()
 
