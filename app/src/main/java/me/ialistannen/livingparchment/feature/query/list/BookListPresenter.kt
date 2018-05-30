@@ -58,7 +58,7 @@ class BookListPresenter @Inject constructor(
             view.setRefreshIndicator(false)
 
             when (it) {
-                is Result.Success -> setBooks(it.value.books)
+                is Result.Success -> setBooks(it.value.books.sortedBy { it.title })
                 is Result.Failure -> {
                     val exception = it.getException()
                     Log.i("BookListPresenter", "Error querying books", exception)

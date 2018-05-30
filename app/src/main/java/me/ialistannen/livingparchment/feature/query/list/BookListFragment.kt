@@ -10,6 +10,7 @@ import me.ialistannen.livingparchment.common.api.response.BookDeleteStatus
 import me.ialistannen.livingparchment.common.model.Book
 import me.ialistannen.livingparchment.feature.BaseFragment
 import me.ialistannen.livingparchment.feature.query.QueryNavigator
+import me.ialistannen.livingparchment.request.ServerConfig
 import me.ialistannen.livingparchment.util.hideKeyboard
 import java.text.DateFormat
 import javax.inject.Inject
@@ -42,6 +43,9 @@ class BookListFragment : BaseFragment(), BookListFragmentContract.View {
     }
 
     @Inject
+    lateinit var serverConfig: ServerConfig
+
+    @Inject
     override lateinit var presenter: BookListFragmentContract.Presenter
 
     private var books: List<Book>? = null
@@ -68,6 +72,7 @@ class BookListFragment : BaseFragment(), BookListFragmentContract.View {
         books = null
 
         book_list.setClickListener { presenter.bookSelected(it) }
+        book_list.serverConfig = serverConfig
 
         book_list.setContextMenuListener { item, menu, _, _ ->
             menu.add(R.string.activity_manage_book_location_delete)

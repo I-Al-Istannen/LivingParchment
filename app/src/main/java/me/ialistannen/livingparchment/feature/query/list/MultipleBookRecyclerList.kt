@@ -9,9 +9,12 @@ import android.view.ContextMenu
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
+import com.squareup.picasso.Picasso
 import me.ialistannen.livingparchment.R
 import me.ialistannen.livingparchment.common.model.Book
+import me.ialistannen.livingparchment.request.ServerConfig
 import kotlin.properties.Delegates
 
 class MultipleBookRecyclerList : RecyclerView {
@@ -25,6 +28,8 @@ class MultipleBookRecyclerList : RecyclerView {
             adapter.items = value
         }
         get() = adapter.items
+
+    lateinit var serverConfig: ServerConfig
 
     private var adapter: BookListAdapter
         get() = getAdapter() as BookListAdapter
@@ -65,7 +70,7 @@ class MultipleBookRecyclerList : RecyclerView {
     }
 
 
-    private class BookListAdapter : RecyclerView.Adapter<BookListViewHolder>() {
+    private inner class BookListAdapter : RecyclerView.Adapter<BookListViewHolder>() {
 
         var items: List<Book> = emptyList()
             set(value) {
@@ -85,7 +90,7 @@ class MultipleBookRecyclerList : RecyclerView {
             val inflater = LayoutInflater.from(parent.context)
 
             val view = inflater.inflate(R.layout.book_list_viewholder_view, parent, false)
-            return BookListViewHolder(view) { pos ->
+            return BookListViewHolder(view, serverConfig) { pos ->
                 clickListener.invoke(filtered[pos])
             }
         }
@@ -104,12 +109,14 @@ class MultipleBookRecyclerList : RecyclerView {
     }
 
     private class BookListViewHolder(view: View,
+                                     private val serverConfig: ServerConfig,
                                      private val clickListener: (Int) -> Unit
     ) : RecyclerView.ViewHolder(view) {
 
         private val titleView: TextView = view.findViewById(R.id.book_title)
         private val isbnView: TextView = view.findViewById(R.id.book_isbn)
         private val authorView: TextView = view.findViewById(R.id.book_author)
+        private val previewImage: ImageView = view.findViewById(R.id.preview_image)
         private var book: Book? = null
 
         init {
@@ -121,6 +128,12 @@ class MultipleBookRecyclerList : RecyclerView {
             titleView.text = book.title
             isbnView.text = book.isbn
             authorView.text = book.authors.joinToString(", ")
+
+            Picasso.get().load("${serverConfig.url}/covers/${book.isbn}.jpg")
+                    .fit()
+                    .placeholder(R.drawable.ic_image)
+                    .error(R.drawable.ic_broken_image)
+                    .into(previewImage)
         }
 
         fun setContextMenuListener(listener: (Book, ContextMenu, View,

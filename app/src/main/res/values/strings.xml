@@ -68,4 +68,5 @@
     <string name="activity_settings_category_server_password_summary">I am using \'%s\' as my password.</string>
     <string name="activity_settings_category_server_username_title">Username</string>
     <string name="activity_settings_category_server_username_summary">I am using the username \'%s\'.</string>
+    <string name="fragment_book_list_view_preview_image_description">Preview image</string>
 </resources>

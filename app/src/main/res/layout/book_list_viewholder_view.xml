@@ -12,20 +12,21 @@
     <TextView
         android:id="@+id/book_title"
         style="@style/BookListViewHolderTitle"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:layout_constraintHorizontal_weight="100"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/preview_image"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="This is a very long book title that should get wrapped or truncated." />
 
     <TextView
         android:id="@+id/book_author"
         style="@style/BookListViewHolderAuthor"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="2dp"
         android:ellipsize="end"
         android:maxLines="1"
@@ -38,7 +39,7 @@
     <TextView
         android:id="@+id/book_isbn"
         style="@style/BookListViewHolderIsbn"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="2dp"
         android:layout_marginEnd="8dp"
@@ -49,5 +50,19 @@
         app:layout_constraintStart_toStartOf="@+id/book_title"
         app:layout_constraintTop_toBottomOf="@+id/book_author"
         tools:text="isbn isbn isbn" />
+
+    <ImageView
+        android:id="@+id/preview_image"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintHorizontal_weight="20"
+        android:contentDescription="@string/fragment_book_list_view_preview_image_description"
+        app:layout_constraintBottom_toBottomOf="@+id/book_isbn"
+        app:layout_constraintEnd_toStartOf="@+id/book_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/book_title"
+        tools:src="@mipmap/ic_launcher" />
 
 </android.support.constraint.ConstraintLayout>
