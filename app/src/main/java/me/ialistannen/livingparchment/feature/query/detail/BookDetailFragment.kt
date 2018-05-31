@@ -5,7 +5,9 @@ import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.*
+import android.widget.ImageView
 import android.widget.TextView
+import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_book_detail.*
 import me.ialistannen.livingparchment.R
@@ -18,6 +20,7 @@ import me.ialistannen.livingparchment.request.ServerConfig
 import me.ialistannen.livingparchment.util.BookChangeListener
 import me.ialistannen.livingparchment.util.BookChangeListeners
 import me.ialistannen.livingparchment.util.addSpacingDecoration
+import java.lang.Exception
 import java.text.DateFormat
 import javax.inject.Inject
 
@@ -121,17 +124,10 @@ class BookDetailFragment : BaseFragment(), BookDetailFragmentContract.View, Book
             }
         }
 
-        (book_detail_list.adapter as BookDetailAdapter).data = dataList.map {
-            it.first.translateIfPossible() to it.second
+        (book_detail_list.adapter as BookDetailAdapter).apply {
+            imageUrl = "${serverConfig.url}/covers/${book.isbn}.jpg"
+            data = dataList.map { it.first.translateIfPossible() to it.second }
         }
-
-        Picasso.get().load("${serverConfig.url}/covers/${book.isbn}.jpg")
-                .fit()
-                .centerInside()
-                .placeholder(R.drawable.book_cover_placeholder)
-                .error(R.drawable.book_cover_placeholder)
-                .into(book_cover_image)
-
     }
 
     private fun String.translateIfPossible(): String {
@@ -152,31 +148,50 @@ class BookDetailFragment : BaseFragment(), BookDetailFragmentContract.View, Book
         (activity as? QueryNavigator)?.displayEditPage(book)
     }
 
-    private class BookDetailAdapter : RecyclerView.Adapter<BookDetailViewHolder>() {
+    private class BookDetailAdapter : RecyclerView.Adapter<BaseViewHolder>() {
 
         var data: List<Pair<String, String>> = emptyList()
             set(value) {
                 field = value
                 notifyDataSetChanged()
             }
+        var imageUrl: String = ""
 
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookDetailViewHolder {
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
             val inflater = LayoutInflater.from(parent.context)
 
-            val view = inflater.inflate(R.layout.book_detail_viewholder_view, parent, false)
-
-            return BookDetailViewHolder(view)
+            return if (viewType == BookDetailViewHolder.viewType) {
+                val view = inflater.inflate(R.layout.book_detail_viewholder_view, parent, false)
+                BookDetailViewHolder(view)
+            } else {
+                val view = inflater.inflate(R.layout.book_detail_viewholder_image_view, parent, false)
+                ImageViewHolder(view)
+            }
         }
 
         override fun getItemCount(): Int = data.size
 
-        override fun onBindViewHolder(holder: BookDetailViewHolder, position: Int) {
-            holder.bind(data[position])
+        override fun getItemViewType(position: Int): Int {
+            return if (position == 0) ImageViewHolder.viewType else {
+                BookDetailViewHolder.viewType
+            }
+        }
+
+        override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
+            when (holder) {
+                is BookDetailViewHolder -> holder.bind(data[position])
+                is ImageViewHolder -> holder.setImage(imageUrl)
+            }
         }
 
     }
 
-    private class BookDetailViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    private class BookDetailViewHolder(view: View) : BaseViewHolder(view) {
+
+        companion object {
+            const val viewType: Int = 0
+        }
+
 
         private val keyView: TextView = view.findViewById(R.id.book_detail_key)
         private val valueView: TextView = view.findViewById(R.id.book_detail_value)
@@ -186,4 +201,33 @@ class BookDetailFragment : BaseFragment(), BookDetailFragmentContract.View, Book
             valueView.text = data.second
         }
     }
+
+    private class ImageViewHolder(view: View) : BaseViewHolder(view) {
+
+        companion object {
+            const val viewType: Int = 1
+        }
+
+        private val imageView: ImageView = view.findViewById(R.id.image_view)
+
+        fun setImage(url: String) {
+            Picasso.get().load(url)
+                    .fit()
+                    .centerInside()
+                    .placeholder(R.drawable.book_cover_placeholder)
+                    .error(R.drawable.book_cover_placeholder)
+                    .into(imageView, object : Callback {
+                        override fun onSuccess() {
+                            imageView.visibility = View.VISIBLE
+                        }
+
+                        override fun onError(e: Exception?) {
+                            imageView.visibility = View.GONE
+                        }
+                    })
+
+        }
+    }
+
+    private abstract class BaseViewHolder(view: View) : RecyclerView.ViewHolder(view)
 }
