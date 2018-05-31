@@ -39,7 +39,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="me.ialistannen.livingparchment.feature.mainscreen.MainActivity" />
         </activity>
-        <activity android:name=".feature.location.add.ManageBookLocationActivity"></activity>
+        <activity
+            android:name=".feature.location.add.ManageBookLocationActivity"
+            android:parentActivityName=".feature.mainscreen.MainActivity"
+            android:windowSoftInputMode="adjustResize">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="me.ialistannen.livingparchment.feature.mainscreen.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

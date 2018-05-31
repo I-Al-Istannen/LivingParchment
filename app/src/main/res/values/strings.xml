@@ -72,4 +72,7 @@
     <string name="activity_manage_book_location_edit">Edit</string>
     <string name="add_location_patch_button">Patch!</string>
     <string name="activity_manage_book_location_delete_title">Do you really want to delete the location?</string>
+    <string name="activity_manage_book_title">Manage locations</string>
+    <string name="add_location_dialog_title">Add new location</string>
+    <string name="add_location_patch_dialog_title">Edit location</string>
 </resources>

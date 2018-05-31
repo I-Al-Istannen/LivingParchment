@@ -3,6 +3,7 @@ package me.ialistannen.livingparchment.feature.location.add
 import android.app.AlertDialog
 import android.os.Bundle
 import android.support.annotation.StringRes
+import android.support.v7.widget.Toolbar
 import android.view.LayoutInflater
 import android.widget.EditText
 import kotlinx.android.synthetic.main.activity_manage_book_location.*
@@ -23,8 +24,20 @@ class ManageBookLocationActivity : BaseActivity(), ManageBookLocationContract.Vi
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_manage_book_location)
 
+        setSupportActionBar(actionbar as Toolbar)
+
+        supportActionBar?.let {
+            it.setDisplayShowHomeEnabled(true)
+            it.setDisplayHomeAsUpEnabled(true)
+            it.title = getString(R.string.activity_manage_book_title)
+        }
+
         add_location_button.setOnClickListener {
-            showInfoInputDialog(layoutInflater, R.string.add_location_add_button) { name, description ->
+            showInfoInputDialog(
+                    layoutInflater,
+                    R.string.add_location_dialog_title,
+                    R.string.add_location_add_button
+            ) { name, description ->
                 presenter.addLocation(name, description)
             }
         }
@@ -47,6 +60,7 @@ class ManageBookLocationActivity : BaseActivity(), ManageBookLocationContract.Vi
                     .setOnMenuItemClickListener {
                         showInfoInputDialog(
                                 layoutInflater,
+                                R.string.add_location_patch_dialog_title,
                                 R.string.add_location_patch_button,
                                 item.name,
                                 item.description
@@ -70,6 +84,7 @@ class ManageBookLocationActivity : BaseActivity(), ManageBookLocationContract.Vi
     }
 
     private fun showInfoInputDialog(layoutInflater: LayoutInflater,
+                                    @StringRes title: Int,
                                     @StringRes positiveButtonText: Int,
                                     initialName: String = "",
                                     initialDescription: String = "",
@@ -89,6 +104,7 @@ class ManageBookLocationActivity : BaseActivity(), ManageBookLocationContract.Vi
 
         AlertDialog.Builder(this)
                 .setView(dialogView)
+                .setTitle(title)
                 .setNegativeButton(android.R.string.cancel) { _, _ -> }
                 .setPositiveButton(positiveButtonText) { _, _ ->
                     action.invoke(
