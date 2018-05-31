@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.BaseAdapter
 import android.widget.SpinnerAdapter
 import android.widget.TextView
@@ -15,12 +16,15 @@ import me.ialistannen.livingparchment.R
 import me.ialistannen.livingparchment.common.api.response.BookAddStatus
 import me.ialistannen.livingparchment.common.model.BookLocation
 import me.ialistannen.livingparchment.feature.isbninput.IsbnScanActivity
+import java.util.*
 import javax.inject.Inject
 
 class BookAddActivity : IsbnScanActivity(), AddScreenContract.View {
 
     @Inject
     override lateinit var presenter: AddScreenContract.Presenter
+
+    private var selectedUuid: UUID? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +42,11 @@ class BookAddActivity : IsbnScanActivity(), AddScreenContract.View {
             it.setDisplayShowHomeEnabled(true)
             it.setDisplayHomeAsUpEnabled(true)
         }
+
+        if (savedInstanceState != null && savedInstanceState.containsKey("location_id")) {
+            selectedUuid = UUID.fromString(savedInstanceState.getString("location_id"))
+            selectLocation(selectedUuid!!)
+        }
     }
 
     override fun onIsbnScanned(isbn: String) {
@@ -52,19 +61,52 @@ class BookAddActivity : IsbnScanActivity(), AddScreenContract.View {
             BookAddStatus.INTERNAL_ERROR -> getString(R.string.status_internal_server_error)
         }
 
-        displayMessage(message)
+        showToast(message)
     }
 
     override fun displayAddFailed(message: String) {
-        displayMessage(message)
+        showToast(message)
     }
 
     override fun setInputIsbn(isbn: String) {
         isbn_input_field.setText(isbn)
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        (location_spinner.selectedItem as BookLocation?)?.let {
+            outState.putString("location_id", it.uuid.toString())
+        }
+        super.onSaveInstanceState(outState)
+    }
+
     override fun setAvailableLocations(locations: List<BookLocation>) {
         location_spinner.adapter = LocationAdapter(this, locations)
+
+        location_spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                selectedUuid = null
+            }
+
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+                val item = parent.adapter.getItem(position) as BookLocation?
+
+                selectedUuid = item?.uuid
+            }
+        }
+
+        selectedUuid?.let { selectLocation(it) }
+    }
+
+    private fun selectLocation(uuid: UUID) {
+        if (location_spinner.adapter == null) {
+            return
+        }
+        for (i in 0 until location_spinner.adapter.count) {
+            val bookLocation = location_spinner.adapter.getItem(i) as BookLocation?
+            if (bookLocation?.uuid == uuid) {
+                location_spinner.setSelection(i)
+            }
+        }
     }
 
     private class LocationAdapter(private val context: Context,

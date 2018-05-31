@@ -55,4 +55,14 @@ interface CanDisplayMessage {
             snackbar.show()
         }
     }
+
+    /**
+     * Shows a simple toast.
+     *
+     * @param message the message to display
+     * @param length the length of the message. Defaults to  [Toast.LENGTH_LONG]
+     */
+    fun showToast(message: String, length: Int = Toast.LENGTH_LONG) {
+        Toast.makeText(getMessageContext(), message, length).show()
+    }
 }
