@@ -69,4 +69,7 @@
     <string name="activity_settings_category_server_username_title">Username</string>
     <string name="activity_settings_category_server_username_summary">I am using the username \'%s\'.</string>
     <string name="fragment_book_list_view_preview_image_description">Preview image</string>
+    <string name="activity_manage_book_location_edit">Edit</string>
+    <string name="add_location_patch_button">Patch!</string>
+    <string name="activity_manage_book_location_delete_title">Do you really want to delete the location?</string>
 </resources>

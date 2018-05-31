@@ -8,8 +8,10 @@ import me.ialistannen.livingparchment.feature.BasePresenter
 import me.ialistannen.livingparchment.request.Requestor
 import me.ialistannen.livingparchment.request.ServerConfig
 import me.ialistannen.livingparchment.request.add.BookLocationAddRequest
+import me.ialistannen.livingparchment.request.change.BookLocationChangeRequest
 import me.ialistannen.livingparchment.request.delete.BookLocationDeleteRequest
 import me.ialistannen.livingparchment.request.query.QueryBookLocationRequest
+import java.util.*
 import javax.inject.Inject
 
 class AddLocationPresenter @Inject constructor(
@@ -81,6 +83,24 @@ class AddLocationPresenter @Inject constructor(
                     val exception = it.getException()
                     view.displayMessage(exception.localizedMessage)
                     Log.i("AddLocationPresenter", "Error deleting a location", exception)
+                }
+            }
+        }
+    }
+
+    override fun patchLocation(id: UUID, name: String, description: String) {
+        async {
+            requestor.executeRequest(BookLocationChangeRequest(serverConfig, id, name, description))
+        } flattenUi {
+            when (it) {
+                is Result.Success -> {
+                    view.displayPatchStatus(it.value.status)
+                    refresh()
+                }
+                is Result.Failure -> {
+                    val exception = it.getException()
+                    view.displayMessage(exception.localizedMessage)
+                    Log.i("AddLocationPresenter", "Error patching a location", exception)
                 }
             }
         }

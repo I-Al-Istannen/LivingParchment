@@ -2,8 +2,10 @@ package me.ialistannen.livingparchment.feature.location.add
 
 import me.ialistannen.livingparchment.common.api.response.BookLocationAddStatus
 import me.ialistannen.livingparchment.common.api.response.BookLocationDeleteStatus
+import me.ialistannen.livingparchment.common.api.response.BookLocationPatchStatus
 import me.ialistannen.livingparchment.common.model.BookLocation
 import me.ialistannen.livingparchment.feature.BaseView
+import java.util.*
 
 interface ManageBookLocationContract {
 
@@ -31,6 +33,13 @@ interface ManageBookLocationContract {
         fun displayAddStatus(status: BookLocationAddStatus)
 
         /**
+         * Displays the result of changing a location.
+         *
+         * @param status the status
+         */
+        fun displayPatchStatus(status: BookLocationPatchStatus)
+
+        /**
          * Displays a message.
          *
          * @param message the message
@@ -54,6 +63,15 @@ interface ManageBookLocationContract {
          * @param description the description of the location
          */
         fun addLocation(name: String, description: String)
+
+        /**
+         * Patches a location.
+         *
+         * @param id the id of the location to edit
+         * @param name the new name of the location
+         * @param description the new description
+         */
+        fun patchLocation(id: UUID, name: String, description: String)
 
         /**
          * Deletes a location.
