@@ -16,7 +16,7 @@ class WebrequestsModule {
     fun provideServerConfig(context: Context): ServerConfig {
         return ServerConfig() {
             PreferenceManager.getDefaultSharedPreferences(context.applicationContext)
-                    .getString("server_url", "http://192.168.188.72:8080")
+                    .getString("settings_server_address", "http://192.168.188.72:8080")
         }
     }
 
