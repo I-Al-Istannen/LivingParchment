@@ -33,3 +33,6 @@ This is quite visible in the presenters of the app,
 as they essentially all just delegate to a web request.
 
 Picasso is responsible for downloading, caching and displaying images.
+
+## Video
+[Here. Gifs are so constraining.](https://streamable.com/tshqj)
